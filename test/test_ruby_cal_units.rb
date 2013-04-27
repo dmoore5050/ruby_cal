@@ -78,4 +78,40 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
     assert_equal headers, calendar.print_month_header + calendar.print_days_header
   end
 
+  def test_12_returns_correct_first_day_of_month
+    calendar = Cal.new 4, 2013
+    assert_equal 2, calendar.get_first_of_month
+  end
+
+  def test_13_returns_correct_first_day_february
+    calendar = Cal.new 2, 2013
+    assert_equal 6, calendar.get_first_of_month
+  end
+
+  def test_14_returns_correct_first_day_leap_year
+    calendar = Cal.new 3, 2012
+    assert_equal 5, calendar.get_first_of_month
+  end
+
+  def test_15_returns_correct_first_day_common_century
+    calendar = Cal.new 3, 2100
+    assert_equal 2, calendar.get_first_of_month
+  end
+
+  def test_16_returns_correct_first_day_400_years
+    calendar = Cal.new 7, 2000
+    assert_equal 0, calendar.get_first_of_month
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
+
