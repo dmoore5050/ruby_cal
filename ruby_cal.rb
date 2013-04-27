@@ -1,11 +1,3 @@
-# month = ARGV[0]
-# year = ARGV[1]
-
-# calendar = Cal.new month, year
-# calendar.print_calendar#
-
-# puts `cal #{month} #{year}`
-
 class Cal
   attr_accessor :month
   attr_accessor :year
@@ -120,6 +112,7 @@ class Cal
     else
       spaces_count = first_day - 1
     end
+
   end
 
   def get_days_in_month
@@ -136,6 +129,7 @@ class Cal
         29
       end
     end
+
   end
 
 end
