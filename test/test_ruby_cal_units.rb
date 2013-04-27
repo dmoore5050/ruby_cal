@@ -53,8 +53,8 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
 
   def test_09_correctly_prints_month_header
     calendar = Cal.new 2, 2015
-    month_and_year = "February 2015\n"
-    assert_equal month_and_year.center(20), calendar.print_month_header
+    month_and_year = "   February 2015\n"
+    assert_equal month_and_year, calendar.print_month_header
   end
 
   def test_10_correctly_prints_days_header
@@ -65,9 +65,9 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
 
   def test_11_print_calendar_returns_combined_headers
     calendar = Cal.new 11, 1962
-    month_and_year = "November 1962\n"
+    month_and_year = "   November 1962\n"
     days = "Su Mo Tu We Th Fr Sa\n"
-    headers = month_and_year.center(20) + days
+    headers = month_and_year + days
 
     assert_equal headers, calendar.print_month_header + calendar.print_days_header
   end
@@ -99,12 +99,47 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
 
   def test_17_spaces_count_correct_sat
     calendar = Cal.new 7, 2000
-    assert_equal 6, calendar.count_initial_spaces(0)
+    assert_equal 6, calendar.get_initial_spaces( 0 )
   end
 
-  def test_18_spaces_count_correct_other
+  def test_18_spaces_count_correct_rest
     calendar = Cal.new 3, 2012
-    assert_equal 4, calendar.count_initial_spaces(5)
+    assert_equal 4, calendar.get_initial_spaces( 5 )
+  end
+
+  def test_19_day_count_feb_leap_year
+    calendar = Cal.new 2, 1992
+    assert_equal 29, calendar.get_days_in_month
+  end
+
+  def test_20_daycount_feb_non_leap_year
+    calendar = Cal.new 2, 1993
+    assert_equal 28, calendar.get_days_in_month
+  end
+
+  def test_21_daycount_30_day_month
+    calendar = Cal.new 4, 1979
+    assert_equal 30, calendar.get_days_in_month
+  end
+
+  def test_22_daycount_31_day_month
+    calendar = Cal.new 10, 1859
+    assert_equal 31, calendar.get_days_in_month
+  end
+
+  def test_23_prints_calendar_feb_non_leap_year
+    calendar = Cal.new 2, 2013
+    assert_equal `cal 2 2013`, calendar.print_calendar
+  end
+
+  def test_24_prints_calendar_feb_leap_year
+    calendar = Cal.new 2, 2012
+    assert_equal `cal 2 2012`, calendar.print_calendar
+  end
+
+  def test_25_prints_calendar_other_months
+    calendar = Cal.new 5, 1901
+    assert_equal `cal 5 1901`, calendar.print_calendar
   end
 
 end
