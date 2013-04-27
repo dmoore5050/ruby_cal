@@ -1,5 +1,3 @@
-
-
   # month = ARGV[0]
   # year = ARGV[1]
 
@@ -15,8 +13,6 @@ class Cal
   end
 
   def print_calendar
-    raise ArgumentError unless (1..12).include? month
-    raise ArgumentError unless (1800..3000).include? year
 
     calendar_string = ""
     calendar_string << print_month_header

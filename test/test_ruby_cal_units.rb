@@ -74,7 +74,8 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
     month_and_year = "November 1962\n"
     days = "Su Mo Tu We Th Fr Sa\n"
     headers = month_and_year.center(20) + days
-    assert_equal headers, calendar.print_calendar
+
+    assert_equal headers, calendar.print_month_header + calendar.print_days_header
   end
 
 end
