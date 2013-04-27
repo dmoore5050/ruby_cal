@@ -7,22 +7,18 @@ class Cal
     @year = year
   end
 
-  def print_calendar
-  end
+  def print_calendar 
 
-  def print_month_header
-  end
+  def print_month_header **done**
+  
+  def print_days_header **done**
 
-  def print_days_header
-  end
-
-  def get_first_of_month
-  end
+  def get_first_of_month **done**
+  
+  def format_month
+  
+  def print_first_week_spaces (?)
 
   def find_weeks_number
-  end
-
-  def format_month
-  end
 
 end
