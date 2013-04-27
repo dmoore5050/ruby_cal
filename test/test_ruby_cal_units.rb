@@ -15,45 +15,39 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
     end
   end
 
-  def test_03_returns_error_if_wrong_year_format
-    calendar = Cal.new 12, 19065
+  def test_03_returns_error_if_invalid_year
     assert_raise ArgumentError do
-      calendar.print_calendar
+      calendar = Cal.new 12, 19065
     end
   end
 
   def test_04_returns_error_if_year_too_late
-    calendar = Cal.new 12, 3078
     assert_raise ArgumentError do
-      calendar.print_calendar
+      calendar = Cal.new 12, 3078
     end
   end
 
   def test_05_returns_error_if_year_too_early
-    calendar = Cal.new 12, 1640
     assert_raise ArgumentError do
-      calendar.print_calendar
+      calendar = Cal.new 12, 1640
     end
   end
 
-  def test_06_returns_error_if_wrong_month_format
-    calendar = Cal.new 230, 2013
+  def test_06_returns_error_if_invalid_month
     assert_raise ArgumentError do
-      calendar.print_calendar
+      calendar = Cal.new 230, 2013
     end
   end
 
   def test_07_returns_error_if_nonexistent_month
-    calendar = Cal.new 13, 2013
     assert_raise ArgumentError do
-      calendar.print_calendar
+      calendar = Cal.new 13, 2013
     end
   end
 
   def test_08_returns_error_if_nonexistent_month
-    calendar = Cal.new 0, 2013
     assert_raise ArgumentError do
-      calendar.print_calendar
+      calendar = Cal.new 0, 2013
     end
   end
 
@@ -101,6 +95,16 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
   def test_16_returns_correct_first_day_400_years
     calendar = Cal.new 7, 2000
     assert_equal 0, calendar.get_first_of_month
+  end
+
+  def test_17_spaces_count_correct_sat
+    calendar = Cal.new 7, 2000
+    assert_equal 6, calendar.count_initial_spaces(0)
+  end
+
+  def test_18_spaces_count_correct_other
+    calendar = Cal.new 3, 2012
+    assert_equal 4, calendar.count_initial_spaces(5)
   end
 
 end

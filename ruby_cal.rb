@@ -6,13 +6,23 @@
 class Cal
   attr_accessor :month
   attr_accessor :year
+  attr_reader :month_error
+  attr_reader :year_error
 
   def initialize (month, year)
+    @month_error = "Valid months are 1..12"
+    @year_error = "Valid years are 1800..3000"
+    raise ArgumentError, @month_error unless (1..12).include? month
+    raise ArgumentError, @year_error unless (1800..3000).include? year
     @month = month
     @year = year
+
+    print_calendar
   end
 
   def print_calendar
+    raise ArgumentError, @month_error unless (1..12).include? month
+    raise ArgumentError, @year_error unless (1800..3000).include? year
 
     calendar_string = ""
     calendar_string << print_month_header
@@ -22,8 +32,8 @@ class Cal
   end
 
   def print_month_header
-    raise ArgumentError unless (1..12).include? month
-    raise ArgumentError unless (1800..3000).include? year
+    raise ArgumentError, @month_error unless (1..12).include? month
+    raise ArgumentError, @year_error unless (1800..3000).include? year
 
     months = [ "January",
                "February",
@@ -48,9 +58,17 @@ class Cal
     return "Su Mo Tu We Th Fr Sa\n"
   end
 
+  def format_month
+    raise ArgumentError, @month_error unless (1..12).include? month
+    raise ArgumentError, @year_error unless (1800..3000).include? year
+
+    first_day = get_first_of_month
+    count_initial_spaces first_day
+  end
+
   def get_first_of_month
-    raise ArgumentError unless (1..12).include? month
-    raise ArgumentError unless (1800..3000).include? year
+    raise ArgumentError, @month_error unless (1..12).include? month
+    raise ArgumentError, @year_error unless (1800..3000).include? year
     # return 0/sat, 1/sun, 2/mon ... 6/friday
 
     months = [14, 15, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
@@ -65,14 +83,17 @@ class Cal
     start_day = (1 + ((month_num * 26)/10) + year_num + (year_num/4) + (6 * (year_num/100)) + (year_num/400)) % 7
   end
 
-  def find_weeks_number
-    raise ArgumentError unless (1..12).include? month
-    raise ArgumentError unless (1800..3000).include? year
+  def count_initial_spaces (first_day)
+    if first_day == 0
+      spaces_count = 6
+    else
+      spaces_count = (first_day - 1)
+    end
   end
 
-  def format_month
-    raise ArgumentError unless (1..12).include? month
-    raise ArgumentError unless (1800..3000).include? year
+  def find_weeks_number
+    raise ArgumentError, @month_error unless (1..12).include? month
+    raise ArgumentError, @year_error unless (1800..3000).include? year
   end
 
 end
