@@ -17,13 +17,7 @@ months = [ "January",
            "December"
         ]
 
-#ternary or if/else?
-# month = ARGV[0] =~ /^[-+]?[1-9]([0-9]*)?$/ ? ARGV[0].to_i : month = ARGV[0]
-if ARGV[0] =~ /^[-+]?[1-9]([0-9]*)?$/
-  month = ARGV[0].to_i
-else
-  month = ARGV[0]
-end
+month = ARGV[0].to_i if ARGV[0] =~ /^[-+]?[1-9]([0-9]*)?$/
 
 calendar = Cal.new month, year
 puts calendar.print_calendar
