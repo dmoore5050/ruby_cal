@@ -1,14 +1,45 @@
 class Cal
   attr_accessor :month
   attr_accessor :year
+  attr_reader :months
 
-  @month_error = "Valid months are 1..12"
+  @month_error = "Valid months are 1..12, January..December"
   @year_error = "Valid years are 1800..3000"
 
   def initialize (month, year)
-    raise ArgumentError, @month_error unless (1..12).include? month
-    raise ArgumentError, @year_error unless (1800..3000).include? year
+
+    @months = [ "January",
+               "February",
+               "March",
+               "April",
+               "May",
+               "June",
+               "July",
+               "August",
+               "September",
+               "October",
+               "November",
+               "December"
+            ]
+
     @month = month
+
+    if month.class.name === "String"
+      raise NameError, @month_error unless months.include? month
+      i = 0
+      months.each_with_index do | this_month, index |
+         if @month.downcase == this_month.downcase
+          month = (index + 1)
+          end
+      end
+    elsif month.class.name === "Fixnum"
+      raise ArgumentError, @month_error unless (1..12).include? month
+    else
+      raise ArgumentError, @month_error
+    end
+    @month = month
+
+    raise ArgumentError, @year_error unless (1800..3000).include? year
     @year = year
 
   end
@@ -25,19 +56,6 @@ class Cal
 
   def print_month_header
 
-    months = [ "January",
-               "February",
-               "March",
-               "April",
-               "May",
-               "June",
-               "July",
-               "August",
-               "September",
-               "October",
-               "November",
-               "December"
-             ]
     this_month = months[ month - 1 ]
     uncentered_string = "#{this_month} #{year}"
     centered_string = uncentered_string.center(20).rstrip

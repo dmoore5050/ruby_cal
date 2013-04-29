@@ -39,6 +39,12 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
     end
   end
 
+  def test_06a_returns_error_if_invalid_month
+    assert_raise NameError do
+      calendar = Cal.new Arpil, 2013
+    end
+  end
+
   def test_07_returns_error_if_nonexistent_month
     assert_raise ArgumentError do
       calendar = Cal.new 13, 2013
@@ -53,6 +59,12 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
 
   def test_09_correctly_prints_month_header
     calendar = Cal.new 2, 2015
+    month_and_year = "   February 2015\n"
+    assert_equal month_and_year, calendar.print_month_header
+  end
+
+  def test_09a_correctly_prints_month_header
+    calendar = Cal.new "February", 2015
     month_and_year = "   February 2015\n"
     assert_equal month_and_year, calendar.print_month_header
   end
