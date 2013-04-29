@@ -1,12 +1,7 @@
-class String
-    def to_i?
-      return pattern =~ /^[-+]?[1-9]([0-9]*)?$/
-    end
-  end
 
 class Cal
-  attr_accessor :month
-  attr_accessor :year
+  attr_reader :month
+  attr_reader :year
   attr_reader :months
   attr_reader :month_error
   attr_reader :year_error
@@ -133,16 +128,3 @@ class Cal
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-

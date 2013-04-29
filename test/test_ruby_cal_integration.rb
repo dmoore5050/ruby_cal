@@ -43,4 +43,3 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
   end
 
 end
-
