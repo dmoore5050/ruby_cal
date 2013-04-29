@@ -99,12 +99,12 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
 
   def test_17_spaces_count_correct_sat
     calendar = Cal.new 7, 2000
-    assert_equal 6, calendar.get_initial_spaces( 0 )
+    assert_equal 6, calendar.get_blank_units( 0 )
   end
 
   def test_18_spaces_count_correct_rest
     calendar = Cal.new 3, 2012
-    assert_equal 4, calendar.get_initial_spaces( 5 )
+    assert_equal 4, calendar.get_blank_units( 5 )
   end
 
   def test_19_day_count_feb_leap_year
