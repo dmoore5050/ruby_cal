@@ -27,6 +27,8 @@ class Cal
 
     @month = month
 
+    month = month.to_i if month =~ /^[-+]?[1-9]([0-9]*)?$/
+
     if month.class.name === "String"
       raise NameError, month_error unless months.include? month.capitalize
       i = 0
@@ -42,8 +44,9 @@ class Cal
     end
     @month = month
 
-    raise ArgumentError, year_error unless (1800..3000).include? year
-    @year = year
+    @year = year.to_i
+    raise ArgumentError, year_error unless (1800..3000).include? year.to_i
+
 
   end
 
