@@ -1,7 +1,15 @@
+class String
+    def to_i?
+      return pattern =~ /^[-+]?[1-9]([0-9]*)?$/
+    end
+  end
+
 class Cal
   attr_accessor :month
   attr_accessor :year
   attr_reader :months
+  attr_reader :month_error
+  attr_reader :year_error
 
   @month_error = "Valid months are 1..12, January..December"
   @year_error = "Valid years are 1800..3000"
@@ -25,7 +33,7 @@ class Cal
     @month = month
 
     if month.class.name === "String"
-      raise NameError, @month_error unless months.include? month
+      raise NameError, month_error unless months.include? month.capitalize
       i = 0
       months.each_with_index do | this_month, index |
          if @month.downcase == this_month.downcase
@@ -33,13 +41,13 @@ class Cal
           end
       end
     elsif month.class.name === "Fixnum"
-      raise ArgumentError, @month_error unless (1..12).include? month
+      raise ArgumentError, month_error unless (1..12).include? month
     else
-      raise ArgumentError, @month_error
+      raise ArgumentError, month_error
     end
     @month = month
 
-    raise ArgumentError, @year_error unless (1800..3000).include? year
+    raise ArgumentError, year_error unless (1800..3000).include? year
     @year = year
 
   end
@@ -95,8 +103,8 @@ class Cal
   def get_first_of_month
     # return 0/sat, 1/sun, 2/mon ... 6/friday
 
-    months = [14, 15, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    adjusted_month = months[month - 1]
+    month_values = [14, 15, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    adjusted_month = month_values[month - 1]
 
     adjusted_year = (3..12).include?(month) ? year : year - 1
 
