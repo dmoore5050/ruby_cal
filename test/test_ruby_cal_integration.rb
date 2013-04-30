@@ -26,11 +26,11 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
     assert_equal(`cal 2 2013`, `ruby cal.rb 2 2013`)
   end
 
-  def test_400_year_leap_year
+  def test_february_400_year_leap_year
     assert_equal(`cal 2 2000`,`ruby cal.rb 2 2000`)
   end
 
-  def test_common_year_exceptions
+  def test_february_common_year_exceptions
     assert_equal(`cal 2 2100`,`ruby cal.rb 2 2100`)
   end
 
@@ -40,6 +40,22 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
 
   def test_date_in_future
     assert_equal(`cal 10 2970`,`ruby cal.rb 10 2970`)
+  end
+
+  def test_year
+    assert_equal(`cal 1952`,`ruby cal.rb 1952`)
+  end
+
+  def test_leap_year
+    assert_equal(`cal 1908`,`ruby cal.rb 1908`)
+  end
+
+  def test_400_year_leap_year
+    assert_equal(`cal 2000`,`ruby cal.rb 2000`)
+  end
+
+  def test_common_century_exception
+    assert_equal(`cal 2600`,`ruby cal.rb 2600`)
   end
 
 end

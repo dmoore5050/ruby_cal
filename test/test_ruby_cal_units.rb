@@ -245,14 +245,14 @@ class RubyCalUnitTests < Test::Unit::TestCase
     assert_equal `cal 1969`, calendar.print_calendar
   end
 
-  # def test_36_prints_leap_year
-  #   calendar = Cal.new 1896
-  #   assert_equal `cal 1896`, calendar.print_calendar
-  # end
+  def test_36_prints_leap_year
+    calendar = Cal.new 1896
+    assert_equal `cal 1896`, calendar.print_calendar
+  end
 
-  # def test_37_prints_year_with_string_year
-  #   calendar = Cal.new "1809"
-  #   assert_equal `cal 1809`, calendar.print_calendar
-  # end
+  def test_37_prints_year_with_string_year
+    calendar = Cal.new "1809"
+    assert_equal `cal 1809`, calendar.print_calendar
+  end
 
 end
