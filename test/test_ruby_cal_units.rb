@@ -210,34 +210,49 @@ class RubyCalUnitTests < Test::Unit::TestCase
     assert_equal `cal 1 1820`, calendar.print_calendar
   end
 
-  def test_09_prints_year_header_num_args_for_year
+  def test_30_prints_year_header_num_args_for_year
     calendar = Cal.new 2015
     year_header = "                             2015\n\n"
     assert_equal year_header, calendar.print_year_header
   end
 
-  def test_09_prints_year_header_str_args_for_year
+  def test_31_prints_year_header_str_args_for_year
     calendar = Cal.new "2015"
     year_header = "                             2015\n\n"
     assert_equal year_header, calendar.print_year_header
   end
 
-  def test_09_prints_month_header_num_args_for_year
+  def test_32_prints_month_header_num_args_for_year
     calendar = Cal.new 2015
     months_header = "       April                  May                   June\n"
     assert_equal months_header, calendar.print_month_header(3)
   end
 
-  def test_09b_prints_month_header_str_args_for_year
+  def test_33_prints_month_header_str_args_for_year
     calendar = Cal.new "2015"
     months_header = "      January               February               March\n"
     assert_equal months_header, calendar.print_month_header(0)
   end
 
-  def test_10_prints_days_header_for_year
+  def test_34_prints_days_header_for_year
     calendar = Cal.new 2007
     days = "Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa\n"
     assert_equal days, calendar.print_days_header
   end
+
+  def test_35_prints_year
+    calendar = Cal.new 1969
+    assert_equal `cal 1969`, calendar.print_calendar
+  end
+
+  # def test_36_prints_leap_year
+  #   calendar = Cal.new 1896
+  #   assert_equal `cal 1896`, calendar.print_calendar
+  # end
+
+  # def test_37_prints_year_with_string_year
+  #   calendar = Cal.new "1809"
+  #   assert_equal `cal 1809`, calendar.print_calendar
+  # end
 
 end
