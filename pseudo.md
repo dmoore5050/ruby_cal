@@ -1,3 +1,9 @@
+months.include? month_arg.capitalize
+
+months.find { |e| /^#{month_arg.downcase/ =~ e.downcase }
+
+
+
 pseudo
 
 make arg 1 default value nil

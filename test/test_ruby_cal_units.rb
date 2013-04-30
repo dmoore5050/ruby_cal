@@ -75,6 +75,12 @@ class RubyCalUnitTests < Test::Unit::TestCase
     assert_equal month_and_year, calendar.print_month_header
   end
 
+  def test_09c_correctly_prints_month_header_partial_str
+    calendar = Cal.new "feb", "2015"
+    month_and_year = "   February 2015\n"
+    assert_equal month_and_year, calendar.print_month_header
+  end
+
   def test_10_correctly_prints_days_header
     calendar = Cal.new 9, 2007
     days = "Su Mo Tu We Th Fr Sa\n"

@@ -31,12 +31,16 @@ class Cal
 
     month_arg = month_arg.to_i if month_arg =~ /^[-+]?[1-9]([0-9]*)?$/
 
-    if month_arg.class.name === "String"
-      raise NameError, month_error unless months.include? month_arg.capitalize
+    if month_arg.class.name === "String" && month_arg.size >= 3
+      unless months.find { |e| /^#{month_arg.downcase}/ =~ e.downcase }
+        raise NameError, month_error
+      end
+      #months.include? month_arg.capitalize
       i = 0
       months.each_with_index do | this_month, index |
-        if @month.downcase == this_month.downcase
+        if /^#{month_arg.downcase}/ =~ this_month.downcase
           month_arg = (index + 1)
+          break
         end
       end
     elsif month_arg.class.name === "Fixnum"
