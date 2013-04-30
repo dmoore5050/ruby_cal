@@ -3,11 +3,29 @@ require './ruby_cal'
 
 class RubyCalUnitTests < Test::Unit::TestCase
 
-  # def test_01_returns_error_if_month_missing
-  #   assert_raise ArgumentError do
-  #     calendar = Cal.new 2013
-  #   end
-  # end
+  def test_01_returns_error_if_negative_month
+    assert_raise ArgumentError do
+      calendar = Cal.new -4, 2013
+    end
+  end
+
+  def test_01a_returns_error_if_negative_month_str
+    assert_raise ArgumentError do
+      calendar = Cal.new "-4", 2013
+    end
+  end
+
+  def test_01b_returns_error_if_negative_year
+    assert_raise ArgumentError do
+      calendar = Cal.new 4, -2013
+    end
+  end
+
+  def test_01c_returns_error_if_negative_year_str
+    assert_raise ArgumentError do
+      calendar = Cal.new 4, "-2013"
+    end
+  end
 
   def test_02_returns_error_if_year_missing
     assert_raise ArgumentError do
@@ -76,8 +94,14 @@ class RubyCalUnitTests < Test::Unit::TestCase
   end
 
   def test_09c_correctly_prints_month_header_partial_str
-    calendar = Cal.new "feb", "2015"
-    month_and_year = "   February 2015\n"
+    calendar = Cal.new "oct", "2015"
+    month_and_year = "    October 2015\n"
+    assert_equal month_and_year, calendar.print_month_header
+  end
+
+  def test_09d_correctly_prints_month_header_octal
+    calendar = Cal.new "09", 2015
+    month_and_year = "   September 2015\n"
     assert_equal month_and_year, calendar.print_month_header
   end
 
@@ -164,6 +188,26 @@ class RubyCalUnitTests < Test::Unit::TestCase
   def test_25_prints_calendar_other_months
     calendar = Cal.new 5, 1901
     assert_equal `cal 5 1901`, calendar.print_calendar
+  end
+
+  def test_26_prints_calendar_octal_month
+    calendar = Cal.new 06, 1937
+    assert_equal `cal 6 1937`, calendar.print_calendar
+  end
+
+  def test_27_prints_calendar_string_args
+    calendar = Cal.new "2", "2690"
+    assert_equal `cal 2 2690`, calendar.print_calendar
+  end
+
+  def test_28_prints_calendar_partial_month_string
+    calendar = Cal.new "octob", "2700"
+    assert_equal `cal 10 2700`, calendar.print_calendar
+  end
+
+  def test_29_prints_calendar_string_args
+    calendar = Cal.new "January", "1820"
+    assert_equal `cal 1 1820`, calendar.print_calendar
   end
 
   def test_09_prints_year_header_num_args_for_year

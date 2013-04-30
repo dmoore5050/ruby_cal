@@ -29,13 +29,12 @@ class Cal
 
     @month = month_arg
 
-    month_arg = month_arg.to_i if month_arg =~ /^[-+]?[1-9]([0-9]*)?$/
+    month_arg = month_arg.to_i if month_arg =~ /^[0-9]([0-9]*)?$/
 
     if month_arg.class.name === "String" && month_arg.size >= 3
       unless months.find { |e| /^#{month_arg.downcase}/ =~ e.downcase }
         raise NameError, month_error
       end
-      #months.include? month_arg.capitalize
       i = 0
       months.each_with_index do | this_month, index |
         if /^#{month_arg.downcase}/ =~ this_month.downcase
@@ -45,7 +44,7 @@ class Cal
       end
     elsif month_arg.class.name === "Fixnum"
       raise ArgumentError, month_error unless (1..12).include? month_arg
-    elsif month_arg.class.name == "NilClass"
+    elsif month_arg.class.name === "NilClass"
       @month = nil
     else
       raise ArgumentError, month_error
@@ -122,6 +121,8 @@ class Cal
     month_length = get_days_in_month
     day, unit, weeks, date = 1, 1, "", ""
 
+
+#pseudo - instead of pushing multiple times, set variable + space. if 7, rstrip then + \n. push.
     6.times do | weeks_count |
       7.times do
         if (unit) <= blank_units
