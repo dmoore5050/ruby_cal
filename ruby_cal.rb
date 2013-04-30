@@ -9,7 +9,9 @@ class Cal
   @month_error = "Valid months are 1..12, January..December"
   @year_error = "Valid years are 1800..3000"
 
-  def initialize (month, year)
+  def initialize (month_arg, year_arg = nil)
+
+    year_arg, month_arg = month_arg, nil if year_arg.nil?
 
     @months = [ "January",
                "February",
@@ -25,52 +27,88 @@ class Cal
                "December"
             ]
 
-    @month = month
+    @month = month_arg
 
-    month = month.to_i if month =~ /^[-+]?[1-9]([0-9]*)?$/
+    month_arg = month_arg.to_i if month_arg =~ /^[-+]?[1-9]([0-9]*)?$/
 
-    if month.class.name === "String"
-      raise NameError, month_error unless months.include? month.capitalize
+    if month_arg.class.name === "String"
+      raise NameError, month_error unless months.include? month_arg.capitalize
       i = 0
       months.each_with_index do | this_month, index |
-         if @month.downcase == this_month.downcase
-          month = (index + 1)
-          end
+        if @month.downcase == this_month.downcase
+          month_arg = (index + 1)
+        end
       end
-    elsif month.class.name === "Fixnum"
-      raise ArgumentError, month_error unless (1..12).include? month
+    elsif month_arg.class.name === "Fixnum"
+      raise ArgumentError, month_error unless (1..12).include? month_arg
+    elsif month_arg.class.name == "NilClass"
+      @month = nil
     else
       raise ArgumentError, month_error
     end
-    @month = month
+    @month = month_arg
 
-    @year = year.to_i
-    raise ArgumentError, year_error unless (1800..3000).include? year.to_i
-
+    raise ArgumentError, year_error unless (1800..3000).include? year_arg.to_i
+    @year = year_arg.to_i
 
   end
 
   def print_calendar
 
     calendar = ""
-    calendar << print_month_header
-    calendar << print_days_header
-    calendar << print_weeks
+    unless month.nil?
+      calendar << print_month_header
+      calendar << print_days_header
+      calendar << print_weeks
+    else
+      calendar << print_year_header
+      month_start = 0
+      4.times do
+        calendar << print_month_header(month_start)
+        calendar << print_days_header
+        month_start += 3
+      end
+    end
 
     calendar
   end
 
-  def print_month_header
+  def print_year_header
+    uncentered_year = year.to_s.center(62).rstrip + "\n\n"
+    uncentered_year
+  end
 
-    this_month = months[ month - 1 ]
-    uncentered_string = "#{this_month} #{year}"
-    centered_string = uncentered_string.center(20).rstrip
+  def print_month_header(month_start = nil)#(*month_start)
 
-    return centered_string + "\n"
+    if month === nil
+      month_header, centered_month, uncentered_month = "", "", ""
+      # month_header = ""
+      3.times do | index |
+        this_month = @months[month_start + index]
+        uncentered_month = "#{this_month}"
+        centered_month = uncentered_month.center(20) + "  "
+        if index == 2
+          centered_month = centered_month.rstrip + "\n"
+        end
+        month_header << centered_month
+      end
+      month_header
+    else
+      this_month = months[ month - 1 ]
+      uncentered_string = "#{this_month} #{year}"
+      centered_string = uncentered_string.center(20).rstrip
+
+      centered_string + "\n"
+    end
+
   end
 
   def print_days_header
-    return "Su Mo Tu We Th Fr Sa\n"
+    if month != nil
+      "Su Mo Tu We Th Fr Sa\n"
+    else
+      "Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa\n"
+    end
   end
 
   def print_weeks
@@ -78,22 +116,24 @@ class Cal
     first_day = get_first_of_month
     blank_units = get_blank_units first_day
     month_length = get_days_in_month
-    unit, day, weeks, date = 1, 1, "", ""
+    day, unit, weeks, date = 1, 1, "", ""
 
-    42.times do
-      if unit <= blank_units
-        weeks << "  "
-      elsif day <= month_length
-        date = (1..9).include?(day) ? " #{day}" : "#{day}"
-        weeks << date
-        day += 1
+    6.times do | weeks_count |
+      7.times do
+        if (unit) <= blank_units
+          weeks << "  "
+        elsif day <= month_length
+          date = (1..9).include?(day) ? " #{day}" : "#{day}"
+          weeks << date
+          day += 1
+        end
+        if (unit) % 7 == 0
+          weeks << "\n"
+        elsif day <= month_length
+          weeks << " "
+        end
+        unit += 1
       end
-      if unit % 7 == 0
-        weeks << "\n"
-      elsif day <= month_length
-        weeks << " "
-      end
-      unit += 1
     end
     weeks
   end
@@ -117,9 +157,12 @@ class Cal
 
   def get_days_in_month
 
-    if [1,3,5,7,8,10,12].include? month
+    months_with_31_days = [1,3,5,7,8,10,12]
+    months_with_30_days = [4,6,9,11]
+
+    if months_with_31_days.include? month
       31
-    elsif [4,6,9,11].include? month
+    elsif months_with_30_days.include? month
       30
     else
       if (year % 4 != 0) or ((year % 100 == 0) and (year % 400 != 0))
