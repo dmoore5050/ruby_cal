@@ -108,7 +108,7 @@ class RubyCalUnitTests < Test::Unit::TestCase
   def test_10_correctly_prints_days_header
     calendar = Cal.new 9, 2007
     days = "Su Mo Tu We Th Fr Sa\n"
-    assert_equal days, calendar.print_days_header
+    assert_equal days, calendar.print_week_header
   end
 
   def test_11_print_calendar_returns_combined_headers
@@ -117,7 +117,7 @@ class RubyCalUnitTests < Test::Unit::TestCase
     days = "Su Mo Tu We Th Fr Sa\n"
     headers = month_and_year + days
 
-    assert_equal headers, calendar.print_month_header + calendar.print_days_header
+    assert_equal headers, calendar.print_month_header + calendar.print_week_header
   end
 
   def test_12_returns_correct_first_day_of_month
@@ -237,7 +237,7 @@ class RubyCalUnitTests < Test::Unit::TestCase
   def test_34_prints_days_header_for_year
     calendar = Cal.new 2007
     days = "Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa\n"
-    assert_equal days, calendar.print_days_header
+    assert_equal days, calendar.print_week_header
   end
 
   def test_35_prints_year
@@ -253,6 +253,66 @@ class RubyCalUnitTests < Test::Unit::TestCase
   def test_37_prints_year_with_string_year
     calendar = Cal.new "1809"
     assert_equal `cal 1809`, calendar.print_calendar
+  end
+
+end
+
+class RubyCalIntegrationTests < Test::Unit::TestCase
+
+  def test_38_6_week_month
+    assert_equal(`cal 6 2013`,`ruby cal.rb 6 2013`)
+  end
+
+  def test_39_4_week_month
+    assert_equal(`cal 2 2009`,`ruby cal.rb 2 2009`)
+  end
+
+  def test_40_month_entered_as_string
+    assert_equal(`cal February 2009`,`ruby cal.rb February 2009`)
+  end
+
+  def test_41_month_as_uncapitalized_string
+    assert_equal(`cal march 1952`,`ruby cal.rb march 1952`)
+  end
+
+  def test_42_february_leap_year
+    assert_equal(`cal 2 2012`, `ruby cal.rb 2 2012`)
+  end
+
+  def test_43_february_non_leap_year
+    assert_equal(`cal 2 2013`, `ruby cal.rb 2 2013`)
+  end
+
+  def test_44_february_400_year_leap_year
+    assert_equal(`cal 2 2000`,`ruby cal.rb 2 2000`)
+  end
+
+  def test_45_february_common_year_exceptions
+    assert_equal(`cal 2 2100`,`ruby cal.rb 2 2100`)
+  end
+
+  def test_46_date_in_past
+    assert_equal(`cal 7 1856`,`ruby cal.rb 7 1856`)
+  end
+
+  def test_47_date_in_future
+    assert_equal(`cal 10 2970`,`ruby cal.rb 10 2970`)
+  end
+
+  def test_48_year
+    assert_equal(`cal 1952`,`ruby cal.rb 1952`)
+  end
+
+  def test_49_leap_year
+    assert_equal(`cal 1908`,`ruby cal.rb 1908`)
+  end
+
+  def test_50_400_year_leap_year
+    assert_equal(`cal 2000`,`ruby cal.rb 2000`)
+  end
+
+  def test_51_common_century_exception
+    assert_equal(`cal 2600`,`ruby cal.rb 2600`)
   end
 
 end
