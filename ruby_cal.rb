@@ -131,18 +131,17 @@ class Cal
     3.times do
       calendar_unit = 1
       @day = 1
-      month_length = get_days_in_month
-      week_loop_for_year calendar_unit
+      month_length = get_month_length
+      loop_over_weeks_for_yearc calendar_unit
       @month_counter += 1
     end
     @week_array.join
   end
 
-  def week_loop_for_year(calendar_unit)
+  def loop_over_weeks_for_year(calendar_unit)
     6.times do | index |
       @week = ""
       @day_counter = 0
-      # day_loop  calendar_unit #buggy - work on implementing
       7.times do
         print_day calendar_unit
         calendar_unit += 1
@@ -153,19 +152,11 @@ class Cal
     end
   end
 
-  # def day_loop calendar_unit
-  #   7.times do
-  #     print_day calendar_unit
-  #     calendar_unit += 1
-  #     @day_counter += 1
-  #   end
-  # end
-
   def print_weeks_for_single_month
     weeks, date = "", ""
     calendar_unit = 1
       @day = 1
-      month_length = get_days_in_month
+      month_length = get_month_length
       6.times do
         @week = ""
         7.times do
@@ -181,7 +172,7 @@ class Cal
   def print_day (calendar_unit) # Cal class perhaps? unsure.
     first_day = get_first_of_month
     blank_units = get_blank_units first_day
-    month_length = get_days_in_month
+    month_length = get_month_length
     if calendar_unit <= blank_units
       @week << "   "
     elsif @day <= month_length
@@ -224,7 +215,7 @@ class Cal
     first_day == 0 ? 6 : first_day - 1
   end
 
-  def get_days_in_month
+  def get_month_length
     month_comp = month.nil? ? @month_counter : month
     months_with_31_days = [1, 3, 5, 7, 8, 10, 12]
     months_with_30_days = [4, 6, 9, 11]

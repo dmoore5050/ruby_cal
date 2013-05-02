@@ -63,6 +63,12 @@ class RubyCalUnitTests < Test::Unit::TestCase
     end
   end
 
+  def test_06b_return_error_if_invalid_partial_month
+    assert_raise NameError do
+      calendar = Cal.new Jug, 2013
+    end
+  end
+
   def test_07_returns_error_if_nonexistent_month
     assert_raise ArgumentError do
       calendar = Cal.new 13, 2013
@@ -157,22 +163,22 @@ class RubyCalUnitTests < Test::Unit::TestCase
 
   def test_19_day_count_feb_leap_year
     calendar = Cal.new 2, 1992
-    assert_equal 29, calendar.get_days_in_month
+    assert_equal 29, calendar.get_month_length
   end
 
   def test_20_daycount_feb_non_leap_year
     calendar = Cal.new 2, 1993
-    assert_equal 28, calendar.get_days_in_month
+    assert_equal 28, calendar.get_month_length
   end
 
   def test_21_daycount_30_day_month
     calendar = Cal.new 4, 1979
-    assert_equal 30, calendar.get_days_in_month
+    assert_equal 30, calendar.get_month_length
   end
 
   def test_22_daycount_31_day_month
     calendar = Cal.new 10, 1859
-    assert_equal 31, calendar.get_days_in_month
+    assert_equal 31, calendar.get_month_length
   end
 
   def test_23_prints_calendar_feb_non_leap_year
