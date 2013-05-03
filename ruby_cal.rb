@@ -1,9 +1,10 @@
 
 #to do? - split Month and Year into separate classes and call from Cal
 class Cal
-  attr_reader :month, :year, :months, :calendar, :headers
-  attr_reader :MONTH_ERROR, :year_error
+  attr_reader :month, :year, :calendar, :headers
+
   MONTH_ERROR = "Valid months are 1..12, January..December"
+  YEAR_ERROR = "Valid years are 1800..3000"
   MONTHS = %w(
     January
     February
@@ -22,7 +23,6 @@ class Cal
   def initialize (month_arg, year_arg = nil) # Cal class
     year_arg, month_arg = month_arg, nil if year_arg.nil?
 
-    @year_error = "Valid years are 1800..3000"
     @month = month_arg
     month_arg = month_arg.to_i if month_arg =~ /^[0-9]([0-9]*)?$/
     if month_arg.class == String && month_arg.size >= 3
@@ -38,7 +38,7 @@ class Cal
     else
       raise ArgumentError, MONTH_ERROR
     end
-    raise ArgumentError, year_error unless (1800..3000).include? year_arg.to_i
+    raise ArgumentError, YEAR_ERROR unless (1800..3000).include? year_arg.to_i
     @year = year_arg.to_i
   end
 
@@ -54,11 +54,7 @@ class Cal
   def print_calendar #split between classes
     @month_counter = 1
     @calendar = ""
-    if month.nil?
-      print_year
-    else
-      print_month
-    end
+    month.nil? ? print_year : print_month
     calendar
   end
 
@@ -66,36 +62,27 @@ class Cal
     calendar << print_year_header
     first_month_in_row = 0
     4.times do
-      calendar << print_month_header(first_month_in_row)
-      calendar << print_week_header
-      calendar << print_weeks
+      calendar << print_month_header(first_month_in_row) << print_week_header << print_weeks
       first_month_in_row += 3
     end
   end
 
   def print_year_header # Year class
-    uncentered_year = year.to_s.center(62).rstrip + "\n\n"
-    uncentered_year
+    year.to_s.center(62).rstrip + "\n\n"
   end
 
   def print_month
-    calendar << print_month_header
-    calendar << print_week_header
-    calendar << print_weeks
+    calendar << print_month_header << print_week_header << print_weeks
   end
 
   def print_month_header(first_month_in_row = nil) # split between classes
-    if month.nil?
-      print_three_month_header first_month_in_row
-    else
-      print_one_month_header
-    end
+    month.nil? ? print_three_month_header(first_month_in_row) : print_one_month_header
   end
 
   def print_three_month_header(first_month_in_row)
-    this_month, centered_month, month_header = "", "", ""
+    month_header = ""
     3.times do | index |
-      this_month =MONTHS[first_month_in_row + index]
+      this_month = MONTHS[first_month_in_row + index]
       centered_month = "#{ this_month }".center(20) + "  "
       centered_month = centered_month.rstrip + "\n" if index === 2
       month_header << centered_month
@@ -104,31 +91,22 @@ class Cal
   end
 
   def print_one_month_header
-    this_month, centered_string = "", ""
     this_month = MONTHS[month - 1]
-    centered_string = "#{ this_month } #{ year }".center(20).rstrip
-    centered_string + "\n"
+    "#{ this_month } #{ year }".center(20).rstrip + "\n"
   end
 
   def print_week_header # split between classes
-    unless month.nil?
-      "Su Mo Tu We Th Fr Sa\n"
-    else
-      "Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa\n"
-    end
+    header_string = day_header = "Su Mo Tu We Th Fr Sa"
+    2.times { header_string += "  #{day_header}" } if month.nil?
+    header_string << "\n"
   end
 
   def print_weeks # split between classes
-    if month.nil?
-      print_weeks_for_year
-    else
-      print_weeks_for_single_month
-    end
+    month.nil? ? print_weeks_for_year : print_weeks_for_single_month
   end
 
   def print_weeks_for_year
-    weeks, date = "", ""
-    @week_array = [ "", "", "", "", "", "" ]
+    weeks, date, @week_array = "", "", [ "", "", "", "", "", "" ]
     3.times do
       calendar_unit = 1
       @day = 1
@@ -174,33 +152,22 @@ class Cal
     first_day = get_first_of_month
     blank_units = get_blank_units first_day
     month_length = get_month_length
-    if calendar_unit <= blank_units
+    if calendar_unit <= blank_units or month.nil? && @day > month_length
       @week << "   "
     elsif @day <= month_length
-      date = (1..9).include?(@day) ? " #{ @day } " : "#{ @day } "
-      @week << date
+      (1..9).include?(@day) ? @week << " #{ @day } " : @week << "#{ @day } "
       @day += 1
-    elsif month.nil? && @day > month_length
-      @week << "   "
     end
   end
 
   def format_week_for_year # year class
     if @day_counter === 7
-      if @month_counter % 3 === 0
-        @week = @week.rstrip
-        @week << "\n"
-      else
-        @week << " "
-      end
+      @month_counter % 3 === 0 ? @week = @week.rstrip + "\n" : @week << " "
     end
   end
 
   def format_day_for_month calendar_unit, month_length # month class
-    if calendar_unit % 7 === 0
-      @week = @week.rstrip
-      @week << "\n"
-    end
+    @week = @week.rstrip + "\n" if calendar_unit % 7 === 0
   end
 
   def get_first_of_month # Cal class
@@ -225,11 +192,7 @@ class Cal
     elsif months_with_30_days.include? month_comp
       30
     else
-      if year % 4 != 0 or year % 100 === 0 && year % 400 != 0
-        28
-      else
-        29
-      end
+      (year % 4 != 0 or year % 100 === 0 && year % 400 != 0) ? 28 : 29
     end
   end
 
