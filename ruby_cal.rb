@@ -43,27 +43,23 @@ class Cal
   end
 
   def find_matching_month(month_arg)
-   MONTHS.each_with_index do | the_month, index |
-      if /^#{month_arg.downcase}/ =~ the_month.downcase
-        @month = (index + 1)
-        break
-      end
+    MONTHS.each_with_index do | the_month, index |
+      @month = (index + 1) if /^#{month_arg.downcase}/ =~ the_month.downcase
     end
   end
 
   def print_calendar #split between classes
-    @month_counter = 1
-    @calendar = ""
+    @month_counter, @calendar = 1, ""
     month.nil? ? print_year : print_month
     calendar
   end
 
   def print_year
     calendar << print_year_header
-    first_month_in_row = 0
+    start_month = 0
     4.times do
-      calendar << print_month_header(first_month_in_row) << print_week_header << print_weeks
-      first_month_in_row += 3
+      calendar << print_month_header(start_month) << print_week_header << print_weeks
+      start_month += 3
     end
   end
 
@@ -75,14 +71,14 @@ class Cal
     calendar << print_month_header << print_week_header << print_weeks
   end
 
-  def print_month_header(first_month_in_row = nil) # split between classes
-    month.nil? ? print_three_month_header(first_month_in_row) : print_one_month_header
+  def print_month_header(start_month = nil) # split between classes
+    month.nil? ? print_three_month_header(start_month) : print_one_month_header
   end
 
-  def print_three_month_header(first_month_in_row)
+  def print_three_month_header(start_month)
     month_header = ""
     3.times do | index |
-      this_month = MONTHS[first_month_in_row + index]
+      this_month = MONTHS[start_month + index]
       centered_month = "#{ this_month }".center(20) + "  "
       centered_month = centered_month.rstrip + "\n" if index === 2
       month_header << centered_month
