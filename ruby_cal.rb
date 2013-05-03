@@ -2,47 +2,48 @@
 #to do? - split Month and Year into separate classes and call from Cal
 class Cal
   attr_reader :month, :year, :months, :calendar, :headers
-  attr_reader :month_error, :year_error
+  attr_reader :MONTH_ERROR, :year_error
+  MONTH_ERROR = "Valid months are 1..12, January..December"
+  MONTHS = %w(
+    January
+    February
+    March
+    April
+    May
+    June
+    July
+    August
+    September
+    October
+    November
+    December
+  )
 
   def initialize (month_arg, year_arg = nil) # Cal class
     year_arg, month_arg = month_arg, nil if year_arg.nil?
-    @month_error = "Valid months are 1..12, January..December"
+
     @year_error = "Valid years are 1800..3000"
-    @months = %w(
-      January
-      February
-      March
-      April
-      May
-      June
-      July
-      August
-      September
-      October
-      November
-      December
-    )
     @month = month_arg
     month_arg = month_arg.to_i if month_arg =~ /^[0-9]([0-9]*)?$/
     if month_arg.class == String && month_arg.size >= 3
-      unless months.find { |month| /^#{month_arg.downcase}/ =~ month.downcase }
-        raise NameError, month_error
+      unless MONTHS.find { |month| /^#{month_arg.downcase}/ =~ month.downcase }
+        raise NameError, MONTH_ERROR
       end
       find_matching_month month_arg
     elsif month_arg.class == Fixnum
-      raise ArgumentError, month_error unless (1..12).include? month_arg
+      raise ArgumentError, MONTH_ERROR unless (1..12).include? month_arg
       @month = month_arg
     elsif month_arg.nil?
       @month = nil
     else
-      raise ArgumentError, month_error
+      raise ArgumentError, MONTH_ERROR
     end
     raise ArgumentError, year_error unless (1800..3000).include? year_arg.to_i
     @year = year_arg.to_i
   end
 
   def find_matching_month(month_arg)
-    months.each_with_index do | the_month, index |
+   MONTHS.each_with_index do | the_month, index |
       if /^#{month_arg.downcase}/ =~ the_month.downcase
         @month = (index + 1)
         break
@@ -94,7 +95,7 @@ class Cal
   def print_three_month_header(first_month_in_row)
     this_month, centered_month, month_header = "", "", ""
     3.times do | index |
-      this_month = months[first_month_in_row + index]
+      this_month =MONTHS[first_month_in_row + index]
       centered_month = "#{ this_month }".center(20) + "  "
       centered_month = centered_month.rstrip + "\n" if index === 2
       month_header << centered_month
@@ -104,7 +105,7 @@ class Cal
 
   def print_one_month_header
     this_month, centered_string = "", ""
-    this_month = months[month - 1]
+    this_month = MONTHS[month - 1]
     centered_string = "#{ this_month } #{ year }".center(20).rstrip
     centered_string + "\n"
   end
@@ -132,7 +133,7 @@ class Cal
       calendar_unit = 1
       @day = 1
       month_length = get_month_length
-      loop_over_weeks_for_yearc calendar_unit
+      loop_over_weeks_for_year calendar_unit
       @month_counter += 1
     end
     @week_array.join
