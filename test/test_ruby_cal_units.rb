@@ -194,13 +194,13 @@ class RubyCalUnitTests < Test::Unit::TestCase
   def test_29_prints_month_header_num_args_for_year
     calendar = Year.new 2015
     months_header = "       April                  May                   June\n"
-    assert_equal months_header, calendar.add_three_month_header(3)
+    assert_equal months_header, calendar.add_month_header(3)
   end
 
   def test_30_prints_month_header_str_args_for_year
     calendar = Year.new "2015"
     months_header = "      January               February               March\n"
-    assert_equal months_header, calendar.add_three_month_header(0)
+    assert_equal months_header, calendar.add_month_header(0)
   end
 
   def test_31_prints_days_header_for_year

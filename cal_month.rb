@@ -1,13 +1,11 @@
 # require "ruby_cal"
 class Month
-  attr_reader :week, :month, :year, :calendar #:day, ,
+  attr_reader :week, :month, :year, :calendar
 
   MONTHS = %w( January February March April May June July August September October November December )
 
   def initialize month_arg, year_arg
-    @calendar = ""
-    @year = year_arg
-    @month = month_arg
+    @calendar, @month, @year = "", month_arg, year_arg
   end
 
   def render_month
@@ -24,19 +22,18 @@ class Month
   end
 
   def add_weeks
-    weeks = ""
-    calendar_unit = 1
-      month_length = get_month_length
-      @day = 1
-      6.times do
-        @week = ""
-        7.times do
-          add_day calendar_unit
-          format_day calendar_unit, month_length
-          calendar_unit += 1
-        end
-        weeks << week
+    weeks, calendar_unit, @date, month_length = "", 1, 1, get_month_length
+
+    6.times do
+      @week = ""
+      7.times do
+        add_day calendar_unit
+        format_day calendar_unit, month_length
+        calendar_unit += 1
       end
+      weeks << week
+    end
+
     weeks
   end
 
@@ -44,11 +41,12 @@ class Month
     first_day = get_first_of_month
     blank_units = get_blank_units first_day
     month_length = get_month_length
+
     if calendar_unit <= blank_units
       week << "   "
-    elsif @day <= month_length
-      (1..9).include?(@day) ? week << " #{ @day } " : week << "#{ @day } "
-      @day += 1
+    elsif @date <= month_length
+      (1..9).include?(@date) ? week << " #{ @date } " : week << "#{ @date } "
+      @date += 1
     end
   end
 
@@ -61,6 +59,7 @@ class Month
     month_values = [14, 15, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     adjusted_month = month_values[month - 1]
     adjusted_year = (3..12).include?(month) ? year : year - 1
+
     (1 + ((adjusted_month * 26) / 10) + adjusted_year + (adjusted_year/4) + (6 * (adjusted_year / 100)) + (adjusted_year / 400)) % 7
   end
 
@@ -71,6 +70,7 @@ class Month
   def get_month_length
     months_with_31_days = [1, 3, 5, 7, 8, 10, 12]
     months_with_30_days = [4, 6, 9, 11]
+
     if months_with_31_days.include? month
       31
     elsif months_with_30_days.include? month
