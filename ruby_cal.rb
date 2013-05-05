@@ -40,7 +40,7 @@ class Cal
     end
   end
 
-  def print_calendar # Cal
+  def print_calendar
     month.nil? ? build_year : build_month
   end
 

@@ -59,7 +59,7 @@ class Year
     weeks, date, @week_array = "", "", [ "", "", "", "", "", "" ]
 
     3.times do
-      calendar_unit, @day = 1, 1
+      calendar_unit, @date = 1, 1
       month_length = get_month_length
       create_weeks calendar_unit
       @month_counter += 1
@@ -71,35 +71,28 @@ class Year
   def create_weeks calendar_unit
 
     6.times do | week_position |
-      @week, @day_counter = "", 0
+      @week = ""
 
       7.times do
        add_day calendar_unit
        calendar_unit += 1
-       @day_counter += 1
       end
 
-      format_week
+      month_counter % 3 === 0 ? @week = week.rstrip + "\n" : week << " "
       @week_array[week_position] << week
     end
   end
 
   def add_day calendar_unit
     first_day = get_first_of_month
-    blank_units = get_blank_units first_day
+    blank_units = first_day == 0 ? 6 : first_day - 1
     month_length = get_month_length
 
-    if calendar_unit <= blank_units or @day > month_length
+    if calendar_unit <= blank_units or @date > month_length
       week << "   "
-    elsif @day <= month_length
-      (1..9).include?(@day) ? week << " #{ @day } " : week << "#{ @day } "
-      @day += 1
-    end
-  end
-
-  def format_week
-    if @day_counter === 7
-      month_counter % 3 === 0 ? @week = week.rstrip + "\n" : week << " "
+    elsif @date <= month_length
+      (1..9).include?(@date) ? week << " #{ @date } " : week << "#{ @date } "
+      @date += 1
     end
   end
 
@@ -110,10 +103,6 @@ class Year
     adjusted_year = (3..12).include?(month_counter) ? year : year - 1
 
     (1 + ((adjusted_month * 26) / 10) + adjusted_year + (adjusted_year/4) + (6 * (adjusted_year / 100)) + (adjusted_year / 400)) % 7
-  end
-
-  def get_blank_units first_day
-    first_day == 0 ? 6 : first_day - 1
   end
 
   def get_month_length

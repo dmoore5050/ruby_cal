@@ -129,15 +129,15 @@ class RubyCalUnitTests < Test::Unit::TestCase
     assert_equal 0, calendar.get_first_of_month
   end
 
-  def test_17_spaces_count_correct_sat
-    calendar = Month.new 7, 2000
-    assert_equal 6, calendar.get_blank_units( 0 )
-  end
+  # def test_17_spaces_count_correct_sat
+  #   calendar = Month.new 7, 2000
+  #   assert_equal 6, calendar.get_blank_units( 0 )
+  # end
 
-  def test_18_spaces_count_correct_rest
-    calendar = Month.new 3, 2012
-    assert_equal 4, calendar.get_blank_units( 5 )
-  end
+  # def test_18_spaces_count_correct_rest
+  #   calendar = Month.new 3, 2012
+  #   assert_equal 4, calendar.get_blank_units( 5 )
+  # end
 
   def test_19_day_count_feb_leap_year
     calendar = Month.new 2, 1992
