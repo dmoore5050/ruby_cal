@@ -1,3 +1,5 @@
+# Encoding: utf-8
+
 class Month
   attr_reader :week, :month, :year, :calendar
 
@@ -16,8 +18,8 @@ class Month
     December
   )
 
-  def initialize month_arg, year_arg
-    @calendar, @month, @year = "", month_arg, year_arg
+  def initialize(month_arg, year_arg)
+    @calendar, @month, @year = '', month_arg, year_arg
   end
 
   def render_month
@@ -34,11 +36,10 @@ class Month
   end
 
   def add_weeks
-    weeks, calendar_unit, @date = "", 1, 1
-    month_length = get_month_length
+    weeks, calendar_unit, @date = '', 1, 1
 
     6.times do
-      @week = ""
+      @week = ''
       7.times do
         add_day calendar_unit
         @week = week.rstrip + "\n" if calendar_unit % 7 === 0
@@ -50,13 +51,13 @@ class Month
     weeks
   end
 
-  def add_day calendar_unit
+  def add_day(calendar_unit)
     first_day = get_first_of_month
     blank_units = first_day == 0 ? 6 : first_day - 1
     month_length = get_month_length
 
     if calendar_unit <= blank_units
-      week << "   "
+      week << '   '
     elsif @date <= month_length
       (1..9).include?(@date) ? week << " #{ @date } " : week << "#{ @date } "
       @date += 1
@@ -66,10 +67,10 @@ class Month
   def get_first_of_month
     # return 0/sat, 1/sun, 2/mon ... 6/friday
     month_values = [14, 15, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    adjusted_month = month_values[month - 1]
-    adjusted_year = (3..12).include?(month) ? year : year - 1
+    m = month_values[month - 1]
+    y = (3..12).include?(month) ? year : year - 1
 
-    (1 + ((adjusted_month * 26) / 10) + adjusted_year + (adjusted_year/4) + (6 * (adjusted_year / 100)) + (adjusted_year / 400)) % 7
+    (1 + ((m * 26) / 10) + y + (y / 4) + (6 * (y / 100)) + (y / 400)) % 7
   end
 
   def get_month_length

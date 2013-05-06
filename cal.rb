@@ -1,3 +1,5 @@
+# Encoding: utf-8
+
 require_relative 'ruby_cal'
 
 month = ARGV[0]

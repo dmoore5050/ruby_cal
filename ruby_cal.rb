@@ -1,11 +1,13 @@
-require_relative "cal_year"
-require_relative "cal_month"
+# Encoding: utf-8
+
+require_relative 'cal_year'
+require_relative 'cal_month'
 
 class Cal
   attr_reader :month, :year
 
-  MONTH_ERROR = "Valid months are 1..12, January..December"
-  YEAR_ERROR = "Valid years are 1800..3000"
+  MONTH_ERROR = 'Valid months are 1..12, January..December'
+  YEAR_ERROR = 'Valid years are 1800..3000'
 
   MONTHS = %w(
     January
@@ -22,14 +24,14 @@ class Cal
     December
   )
 
-  def initialize month_arg, year_arg = nil
+  def initialize(month_arg, year_arg = nil)
     year_arg, month_arg = month_arg, nil if year_arg.nil?
 
     @month = month_arg
     month_arg = month_arg.to_i if month_arg =~ /^[0-9]([0-9]*)?$/
 
     if month_arg.class == String && month_arg.size >= 3
-      unless MONTHS.find { |month| /^#{month_arg.downcase}/ =~ month.downcase }
+      unless MONTHS.find { |month| /^#{ month_arg.downcase }/ =~ month.downcase }
         raise NameError, MONTH_ERROR
       end
       find_matching_month month_arg
@@ -47,9 +49,9 @@ class Cal
 
   end
 
-  def find_matching_month month_arg
+  def find_matching_month(month_arg)
     MONTHS.each_with_index do | month, month_position |
-      @month = (month_position + 1) if /^#{month_arg.downcase}/ =~ month.downcase
+      @month = (month_position + 1) if /^#{ month_arg.downcase }/ =~ month.downcase
     end
   end
 

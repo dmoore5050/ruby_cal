@@ -1,3 +1,5 @@
+# Encoding: utf-8
+
 require 'test/unit'
 require './ruby_cal'
 require './cal_month'
@@ -7,91 +9,91 @@ class RubyCalUnitTests < Test::Unit::TestCase
 
   def test_01_returns_error_if_negative_month
     assert_raise ArgumentError do
-      calendar = Cal.new(-4, 2013)
+      Cal.new(-4, 2013)
     end
   end
 
   def test_01a_returns_error_if_negative_month_str
     assert_raise ArgumentError do
-      calendar = Cal.new "-4", 2013
+      Cal.new '-4', 2013
     end
   end
 
   def test_01b_returns_error_if_negative_year
     assert_raise ArgumentError do
-      calendar = Cal.new 4, -2013
+      Cal.new 4, -2013
     end
   end
 
   def test_01c_returns_error_if_negative_year_str
     assert_raise ArgumentError do
-      calendar = Cal.new 4, "-2013"
+      Cal.new 4, '-2013'
     end
   end
 
   def test_02_returns_error_if_year_missing
     assert_raise ArgumentError do
-      calendar = Cal.new 12
+      Cal.new 12
     end
   end
 
   def test_03_returns_error_if_invalid_year
     assert_raise ArgumentError do
-      calendar = Cal.new 12, 19065
+      Cal.new 12, 19065
     end
   end
 
   def test_04_returns_error_if_year_too_late
     assert_raise ArgumentError do
-      calendar = Cal.new 12, 3078
+      Cal.new 12, 3078
     end
   end
 
   def test_05_returns_error_if_year_too_early
     assert_raise ArgumentError do
-      calendar = Cal.new 12, 1640
+      Cal.new 12, 1640
     end
   end
 
   def test_06_returns_error_if_invalid_month
     assert_raise ArgumentError do
-      calendar = Cal.new 230, 2013
+      Cal.new 230, 2013
     end
   end
 
   def test_07_returns_error_if_invalid_month
     assert_raise NameError do
-      calendar = Cal.new Arpil, 2013
+      Cal.new Arpil, 2013
     end
   end
 
   def test_08_return_error_if_invalid_partial_month
     assert_raise NameError do
-      calendar = Cal.new Jug, 2013
+      Cal.new Jug, 2013
     end
   end
 
   def test_09_returns_error_if_nonexistent_month
     assert_raise ArgumentError do
-      calendar = Cal.new 13, 2013
+      Cal.new 13, 2013
     end
   end
 
   def test_10_returns_error_if_nonexistent_month
     assert_raise ArgumentError do
-      calendar = Cal.new 0, 2013
+      Cal.new 0, 2013
     end
   end
 
   def test_10a_returns_error_if_5_digit_year
     assert_raise ArgumentError do
-      calendar = Cal.new 20130
+      Cal.new 20130
     end
   end
 
   def test_10b_returns_error_if_3_digit_year
     assert_raise ArgumentError do
-      calendar = Cal.new 201
+      Cal.new 201
     end
   end
 
@@ -188,7 +190,7 @@ class RubyCalUnitTests < Test::Unit::TestCase
   end
 
   def test_28_prints_year_header_str_args_for_year
-    calendar = Year.new "2015"
+    calendar = Year.new '2015'
     year_header = "                             2015\n\n"
     assert_equal year_header, calendar.add_year_header
   end
@@ -200,7 +202,7 @@ class RubyCalUnitTests < Test::Unit::TestCase
   end
 
   def test_30_prints_month_header_str_args_for_year
-    calendar = Year.new "2015"
+    calendar = Year.new '2015'
     months_header = "      January               February               March\n"
     assert_equal months_header, calendar.add_month_header(0)
   end
@@ -222,7 +224,7 @@ class RubyCalUnitTests < Test::Unit::TestCase
   end
 
   def test_34_prints_year_with_string_year
-    calendar = Cal.new "1809"
+    calendar = Cal.new '1809'
     assert_equal `cal 1809`, calendar.print_calendar
   end
 
@@ -231,23 +233,23 @@ end
 class RubyCalIntegrationTests < Test::Unit::TestCase
 
   def test_35_6_week_month
-    assert_equal(`cal 6 2013`,`ruby cal.rb 6 2013`)
+    assert_equal(`cal 6 2013`, `ruby cal.rb 6 2013`)
   end
 
   def test_36_4_week_month
-    assert_equal(`cal 2 2009`,`ruby cal.rb 2 2009`)
+    assert_equal(`cal 2 2009`, `ruby cal.rb 2 2009`)
   end
 
   def test_37_month_entered_as_string
-    assert_equal(`cal February 2009`,`ruby cal.rb February 2009`)
+    assert_equal(`cal February 2009`, `ruby cal.rb February 2009`)
   end
 
   def test_38_month_as_uncapitalized_string
-    assert_equal(`cal march 1952`,`ruby cal.rb march 1952`)
+    assert_equal(`cal march 1952`, `ruby cal.rb march 1952`)
   end
 
   def test_39_month_as_partial_string
-    assert_equal(`cal nov 2376`,`ruby cal.rb nov 2376`)
+    assert_equal(`cal nov 2376`, `ruby cal.rb nov 2376`)
   end
 
   def test_40_february_leap_year
@@ -259,35 +261,35 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
   end
 
   def test_42_february_400_year_leap_year
-    assert_equal(`cal 2 2000`,`ruby cal.rb 2 2000`)
+    assert_equal(`cal 2 2000`, `ruby cal.rb 2 2000`)
   end
 
   def test_43_february_common_year_exceptions
-    assert_equal(`cal 2 2100`,`ruby cal.rb 2 2100`)
+    assert_equal(`cal 2 2100`, `ruby cal.rb 2 2100`)
   end
 
   def test_44_date_in_past
-    assert_equal(`cal 7 1856`,`ruby cal.rb 7 1856`)
+    assert_equal(`cal 7 1856`, `ruby cal.rb 7 1856`)
   end
 
   def test_45_date_in_future
-    assert_equal(`cal 10 2970`,`ruby cal.rb 10 2970`)
+    assert_equal(`cal 10 2970`, `ruby cal.rb 10 2970`)
   end
 
   def test_46_year
-    assert_equal(`cal 1952`,`ruby cal.rb 1952`)
+    assert_equal(`cal 1952`, `ruby cal.rb 1952`)
   end
 
   def test_47_leap_year
-    assert_equal(`cal 1908`,`ruby cal.rb 1908`)
+    assert_equal(`cal 1908`, `ruby cal.rb 1908`)
   end
 
   def test_48_400_year_leap_year
-    assert_equal(`cal 2000`,`ruby cal.rb 2000`)
+    assert_equal(`cal 2000`, `ruby cal.rb 2000`)
   end
 
   def test_49_common_century_exception
-    assert_equal(`cal 2600`,`ruby cal.rb 2600`)
+    assert_equal(`cal 2600`, `ruby cal.rb 2600`)
   end
 
 end

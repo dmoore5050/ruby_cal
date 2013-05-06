@@ -1,3 +1,5 @@
+# Encoding: utf-8
+
 class Year
   attr_reader :week, :month, :year, :calendar, :month_counter
 
@@ -16,9 +18,9 @@ class Year
     December
   )
 
-  def initialize month_arg, year_arg = nil
+  def initialize(month_arg, year_arg = nil)
     year_arg, month_arg = month_arg, nil if year_arg.nil?
-    @calendar, @month_counter, @month, @year = "", 1, month_arg, year_arg
+    @calendar, @month_counter, @month, @year = '', 1, month_arg, year_arg
   end
 
   def render_year
@@ -36,13 +38,13 @@ class Year
     year.to_s.center(62).rstrip + "\n\n"
   end
 
-  def add_month_header start_month
-    month_header = ""
+  def add_month_header(start_month)
+    month_header = ''
 
     3.times do | month_increment |
       this_month = MONTHS[start_month + month_increment]
 
-      centered_month = "#{ this_month }".center(20) + "  "
+      centered_month = "#{ this_month }".center(20) + '  '
       centered_month = centered_month.rstrip + "\n" if month_increment === 2
       month_header << centered_month
 
@@ -57,18 +59,18 @@ class Year
   end
 
   def add_week_header
-    header_string = day_header = "Su Mo Tu We Th Fr Sa"
+    header_string = day_header = 'Su Mo Tu We Th Fr Sa'
 
     2.times { header_string += "  #{day_header}" }
     header_string << "\n"
   end
 
   def add_weeks
-    weeks, date, @week_array = "", "", [ "", "", "", "", "", "" ]
+    @week_array = ['', '', '', '', '', '']
 
     3.times do
       calendar_unit, @date = 1, 1
-      month_length = get_month_length
+      # month_length = get_month_length
       create_weeks calendar_unit
       @month_counter += 1
     end
@@ -76,27 +78,27 @@ class Year
     @week_array.join
   end
 
-  def create_weeks calendar_unit
+  def create_weeks(calendar_unit)
     6.times do | week_position |
-      @week = ""
+      @week = ''
 
       7.times do
         add_day calendar_unit
         calendar_unit += 1
       end
-      month_counter % 3 === 0 ? @week = week.rstrip + "\n" : week << " "
+      month_counter % 3 === 0 ? @week = week.rstrip + "\n" : week << ' '
 
       @week_array[week_position] << week
     end
   end
 
-  def add_day calendar_unit
+  def add_day(calendar_unit)
     first_day = get_first_of_month
     blank_units = first_day == 0 ? 6 : first_day - 1
     month_length = get_month_length
 
-    if calendar_unit <= blank_units or @date > month_length
-      week << "   "
+    if calendar_unit <= blank_units || @date > month_length
+      week << '   '
     elsif @date <= month_length
       (1..9).include?(@date) ? week << " #{ @date } " : week << "#{ @date } "
       @date += 1
@@ -109,7 +111,7 @@ class Year
     m = month_values[month_counter - 1]
     y = (3..12).include?(month_counter) ? year : year - 1
 
-    (1 + ((m * 26) / 10) + y + (y/4) + (6 * (y / 100)) + (y / 400)) % 7
+    (1 + ((m * 26) / 10) + y + (y / 4) + (6 * (y / 100)) + (y / 400)) % 7
   end
 
   def get_month_length
