@@ -7,7 +7,20 @@ class Cal
   MONTH_ERROR = "Valid months are 1..12, January..December"
   YEAR_ERROR = "Valid years are 1800..3000"
 
-  MONTHS = %w( January February March April May June July August September October November December )
+  MONTHS = %w(
+    January
+    February
+    March
+    April
+    May
+    June
+    July
+    August
+    September
+    October
+    November
+    December
+  )
 
   def initialize month_arg, year_arg = nil
     year_arg, month_arg = month_arg, nil if year_arg.nil?

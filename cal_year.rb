@@ -106,10 +106,10 @@ class Year
   def get_first_of_month
     # return 0/sat, 1/sun, 2/mon ... 6/friday
     month_values = [14, 15, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    adjusted_month = month_values[month_counter - 1]
-    adjusted_year = (3..12).include?(month_counter) ? year : year - 1
+    m = month_values[month_counter - 1]
+    y = (3..12).include?(month_counter) ? year : year - 1
 
-    (1 + ((adjusted_month * 26) / 10) + adjusted_year + (adjusted_year/4) + (6 * (adjusted_year / 100)) + (adjusted_year / 400)) % 7
+    (1 + ((m * 26) / 10) + y + (y/4) + (6 * (y / 100)) + (y / 400)) % 7
   end
 
   def get_month_length
