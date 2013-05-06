@@ -1,4 +1,4 @@
-# Encoding: utf-8
+# -*- encoding : utf-8 -*-
 
 class Year
   attr_reader :week, :month, :year, :calendar, :month_counter
@@ -70,7 +70,6 @@ class Year
 
     3.times do
       calendar_unit, @date = 1, 1
-      # month_length = get_month_length
       create_weeks calendar_unit
       @month_counter += 1
     end

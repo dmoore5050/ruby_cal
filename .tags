@@ -5,29 +5,33 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 Cal	ruby_cal.rb	/^class Cal$/;"	c
+Month	cal_month.rb	/^class Month$/;"	c
 RubyCalIntegrationTests	test/test_ruby_cal_units.rb	/^class RubyCalIntegrationTests < Test::Unit::TestCase$/;"	c
 RubyCalUnitTests	test/test_ruby_cal_units.rb	/^class RubyCalUnitTests < Test::Unit::TestCase$/;"	c
+Year	cal_year.rb	/^class Year$/;"	c
+add_day	cal_month.rb	/^  def add_day(calendar_unit)$/;"	f	class:Month
+add_day	cal_year.rb	/^  def add_day(calendar_unit)$/;"	f	class:Year
+add_month_header	cal_month.rb	/^  def add_month_header$/;"	f	class:Month
+add_month_header	cal_year.rb	/^  def add_month_header(start_month)$/;"	f	class:Year
+add_week_header	cal_month.rb	/^  def add_week_header$/;"	f	class:Month
+add_week_header	cal_year.rb	/^  def add_week_header$/;"	f	class:Year
+add_weeks	cal_month.rb	/^  def add_weeks$/;"	f	class:Month
+add_weeks	cal_year.rb	/^  def add_weeks$/;"	f	class:Year
+add_year_header	cal_year.rb	/^  def add_year_header$/;"	f	class:Year
+build_month	ruby_cal.rb	/^  def build_month$/;"	f	class:Cal
+build_year	ruby_cal.rb	/^  def build_year$/;"	f	class:Cal
+create_weeks	cal_year.rb	/^  def create_weeks(calendar_unit)$/;"	f	class:Year
 find_matching_month	ruby_cal.rb	/^  def find_matching_month(month_arg)$/;"	f	class:Cal
-format_day_for_month	ruby_cal.rb	/^  def format_day_for_month calendar_unit, month_length # month class$/;"	f	class:Cal
-format_week_for_year	ruby_cal.rb	/^  def format_week_for_year # year class$/;"	f	class:Cal
-get_blah	cal.rb	/^def get_blah$/;"	f
-get_blank_units	ruby_cal.rb	/^  def get_blank_units (first_day) # Cal class$/;"	f	class:Cal
-get_first_of_month	ruby_cal.rb	/^  def get_first_of_month # Cal class$/;"	f	class:Cal
-get_month_length	ruby_cal.rb	/^  def get_month_length$/;"	f	class:Cal
-initialize	ruby_cal.rb	/^  def initialize (month_arg, year_arg = nil) # Cal class$/;"	f	class:Cal
-loop_over_weeks_for_year	ruby_cal.rb	/^  def loop_over_weeks_for_year(calendar_unit)$/;"	f	class:Cal
-print_calendar	ruby_cal.rb	/^  def print_calendar #split between classes$/;"	f	class:Cal
-print_day	ruby_cal.rb	/^  def print_day (calendar_unit) # Cal class perhaps? unsure.$/;"	f	class:Cal
-print_month	ruby_cal.rb	/^  def print_month$/;"	f	class:Cal
-print_month_header	ruby_cal.rb	/^  def print_month_header(first_month_in_row = nil) # split between classes$/;"	f	class:Cal
-print_one_month_header	ruby_cal.rb	/^  def print_one_month_header$/;"	f	class:Cal
-print_three_month_header	ruby_cal.rb	/^  def print_three_month_header(first_month_in_row)$/;"	f	class:Cal
-print_week_header	ruby_cal.rb	/^  def print_week_header # split between classes$/;"	f	class:Cal
-print_weeks	ruby_cal.rb	/^  def print_weeks # split between classes$/;"	f	class:Cal
-print_weeks_for_single_month	ruby_cal.rb	/^  def print_weeks_for_single_month$/;"	f	class:Cal
-print_weeks_for_year	ruby_cal.rb	/^  def print_weeks_for_year$/;"	f	class:Cal
-print_year	ruby_cal.rb	/^  def print_year$/;"	f	class:Cal
-print_year_header	ruby_cal.rb	/^  def print_year_header # Year class$/;"	f	class:Cal
+get_first_of_month	cal_month.rb	/^  def get_first_of_month$/;"	f	class:Month
+get_first_of_month	cal_year.rb	/^  def get_first_of_month$/;"	f	class:Year
+get_month_length	cal_month.rb	/^  def get_month_length$/;"	f	class:Month
+get_month_length	cal_year.rb	/^  def get_month_length$/;"	f	class:Year
+initialize	cal_month.rb	/^  def initialize(month_arg, year_arg)$/;"	f	class:Month
+initialize	cal_year.rb	/^  def initialize(month_arg, year_arg = nil)$/;"	f	class:Year
+initialize	ruby_cal.rb	/^  def initialize(month_arg, year_arg = nil)$/;"	f	class:Cal
+print_calendar	ruby_cal.rb	/^  def print_calendar$/;"	f	class:Cal
+render_month	cal_month.rb	/^  def render_month$/;"	f	class:Month
+render_year	cal_year.rb	/^  def render_year$/;"	f	class:Year
 test_01_returns_error_if_negative_month	test/test_ruby_cal_units.rb	/^  def test_01_returns_error_if_negative_month$/;"	f	class:RubyCalUnitTests
 test_01a_returns_error_if_negative_month_str	test/test_ruby_cal_units.rb	/^  def test_01a_returns_error_if_negative_month_str$/;"	f	class:RubyCalUnitTests
 test_01b_returns_error_if_negative_year	test/test_ruby_cal_units.rb	/^  def test_01b_returns_error_if_negative_year$/;"	f	class:RubyCalUnitTests
@@ -37,24 +41,20 @@ test_03_returns_error_if_invalid_year	test/test_ruby_cal_units.rb	/^  def test_0
 test_04_returns_error_if_year_too_late	test/test_ruby_cal_units.rb	/^  def test_04_returns_error_if_year_too_late$/;"	f	class:RubyCalUnitTests
 test_05_returns_error_if_year_too_early	test/test_ruby_cal_units.rb	/^  def test_05_returns_error_if_year_too_early$/;"	f	class:RubyCalUnitTests
 test_06_returns_error_if_invalid_month	test/test_ruby_cal_units.rb	/^  def test_06_returns_error_if_invalid_month$/;"	f	class:RubyCalUnitTests
-test_06a_returns_error_if_invalid_month	test/test_ruby_cal_units.rb	/^  def test_06a_returns_error_if_invalid_month$/;"	f	class:RubyCalUnitTests
-test_06b_return_error_if_invalid_partial_month	test/test_ruby_cal_units.rb	/^  def test_06b_return_error_if_invalid_partial_month$/;"	f	class:RubyCalUnitTests
-test_07_returns_error_if_nonexistent_month	test/test_ruby_cal_units.rb	/^  def test_07_returns_error_if_nonexistent_month$/;"	f	class:RubyCalUnitTests
-test_08_returns_error_if_nonexistent_month	test/test_ruby_cal_units.rb	/^  def test_08_returns_error_if_nonexistent_month$/;"	f	class:RubyCalUnitTests
-test_09_correctly_prints_month_header_num_args	test/test_ruby_cal_units.rb	/^  def test_09_correctly_prints_month_header_num_args$/;"	f	class:RubyCalUnitTests
-test_09a_correctly_prints_month_header_name_arg	test/test_ruby_cal_units.rb	/^  def test_09a_correctly_prints_month_header_name_arg$/;"	f	class:RubyCalUnitTests
-test_09b_correctly_prints_month_header_str_args	test/test_ruby_cal_units.rb	/^  def test_09b_correctly_prints_month_header_str_args$/;"	f	class:RubyCalUnitTests
-test_09c_correctly_prints_month_header_partial_str	test/test_ruby_cal_units.rb	/^  def test_09c_correctly_prints_month_header_partial_str$/;"	f	class:RubyCalUnitTests
-test_09d_correctly_prints_month_header_octal	test/test_ruby_cal_units.rb	/^  def test_09d_correctly_prints_month_header_octal$/;"	f	class:RubyCalUnitTests
-test_10_correctly_prints_days_header	test/test_ruby_cal_units.rb	/^  def test_10_correctly_prints_days_header$/;"	f	class:RubyCalUnitTests
-test_11_print_calendar_returns_combined_headers	test/test_ruby_cal_units.rb	/^  def test_11_print_calendar_returns_combined_headers$/;"	f	class:RubyCalUnitTests
-test_12_returns_correct_first_day_of_month	test/test_ruby_cal_units.rb	/^  def test_12_returns_correct_first_day_of_month$/;"	f	class:RubyCalUnitTests
-test_13_returns_correct_first_day_february	test/test_ruby_cal_units.rb	/^  def test_13_returns_correct_first_day_february$/;"	f	class:RubyCalUnitTests
-test_14_returns_correct_first_day_leap_year	test/test_ruby_cal_units.rb	/^  def test_14_returns_correct_first_day_leap_year$/;"	f	class:RubyCalUnitTests
-test_15_returns_correct_first_day_common_century	test/test_ruby_cal_units.rb	/^  def test_15_returns_correct_first_day_common_century$/;"	f	class:RubyCalUnitTests
-test_16_returns_correct_first_day_400_years	test/test_ruby_cal_units.rb	/^  def test_16_returns_correct_first_day_400_years$/;"	f	class:RubyCalUnitTests
-test_17_spaces_count_correct_sat	test/test_ruby_cal_units.rb	/^  def test_17_spaces_count_correct_sat$/;"	f	class:RubyCalUnitTests
-test_18_spaces_count_correct_rest	test/test_ruby_cal_units.rb	/^  def test_18_spaces_count_correct_rest$/;"	f	class:RubyCalUnitTests
+test_07_returns_error_if_invalid_month	test/test_ruby_cal_units.rb	/^  def test_07_returns_error_if_invalid_month$/;"	f	class:RubyCalUnitTests
+test_08_return_error_if_invalid_partial_month	test/test_ruby_cal_units.rb	/^  def test_08_return_error_if_invalid_partial_month$/;"	f	class:RubyCalUnitTests
+test_09_returns_error_if_nonexistent_month	test/test_ruby_cal_units.rb	/^  def test_09_returns_error_if_nonexistent_month$/;"	f	class:RubyCalUnitTests
+test_10_returns_error_if_nonexistent_month	test/test_ruby_cal_units.rb	/^  def test_10_returns_error_if_nonexistent_month$/;"	f	class:RubyCalUnitTests
+test_10a_returns_error_if_5_digit_year	test/test_ruby_cal_units.rb	/^  def test_10a_returns_error_if_5_digit_year$/;"	f	class:RubyCalUnitTests
+test_10b_returns_error_if_3_digit_year	test/test_ruby_cal_units.rb	/^  def test_10b_returns_error_if_3_digit_year$/;"	f	class:RubyCalUnitTests
+test_11_correctly_prints_month_header	test/test_ruby_cal_units.rb	/^  def test_11_correctly_prints_month_header$/;"	f	class:RubyCalUnitTests
+test_12_correctly_prints_days_header	test/test_ruby_cal_units.rb	/^  def test_12_correctly_prints_days_header$/;"	f	class:RubyCalUnitTests
+test_13_add_calendar_returns_combined_headers	test/test_ruby_cal_units.rb	/^  def test_13_add_calendar_returns_combined_headers$/;"	f	class:RubyCalUnitTests
+test_14_returns_correct_first_day_of_month	test/test_ruby_cal_units.rb	/^  def test_14_returns_correct_first_day_of_month$/;"	f	class:RubyCalUnitTests
+test_15_returns_correct_first_day_february	test/test_ruby_cal_units.rb	/^  def test_15_returns_correct_first_day_february$/;"	f	class:RubyCalUnitTests
+test_16_returns_correct_first_day_leap_year	test/test_ruby_cal_units.rb	/^  def test_16_returns_correct_first_day_leap_year$/;"	f	class:RubyCalUnitTests
+test_17_returns_correct_first_day_common_century	test/test_ruby_cal_units.rb	/^  def test_17_returns_correct_first_day_common_century$/;"	f	class:RubyCalUnitTests
+test_18_returns_correct_first_day_400_years	test/test_ruby_cal_units.rb	/^  def test_18_returns_correct_first_day_400_years$/;"	f	class:RubyCalUnitTests
 test_19_day_count_feb_leap_year	test/test_ruby_cal_units.rb	/^  def test_19_day_count_feb_leap_year$/;"	f	class:RubyCalUnitTests
 test_20_daycount_feb_non_leap_year	test/test_ruby_cal_units.rb	/^  def test_20_daycount_feb_non_leap_year$/;"	f	class:RubyCalUnitTests
 test_21_daycount_30_day_month	test/test_ruby_cal_units.rb	/^  def test_21_daycount_30_day_month$/;"	f	class:RubyCalUnitTests
@@ -63,28 +63,26 @@ test_23_prints_calendar_feb_non_leap_year	test/test_ruby_cal_units.rb	/^  def te
 test_24_prints_calendar_feb_leap_year	test/test_ruby_cal_units.rb	/^  def test_24_prints_calendar_feb_leap_year$/;"	f	class:RubyCalUnitTests
 test_25_prints_calendar_other_months	test/test_ruby_cal_units.rb	/^  def test_25_prints_calendar_other_months$/;"	f	class:RubyCalUnitTests
 test_26_prints_calendar_octal_month	test/test_ruby_cal_units.rb	/^  def test_26_prints_calendar_octal_month$/;"	f	class:RubyCalUnitTests
-test_27_prints_calendar_string_args	test/test_ruby_cal_units.rb	/^  def test_27_prints_calendar_string_args$/;"	f	class:RubyCalUnitTests
-test_28_prints_calendar_partial_month_string	test/test_ruby_cal_units.rb	/^  def test_28_prints_calendar_partial_month_string$/;"	f	class:RubyCalUnitTests
-test_29_prints_calendar_string_args	test/test_ruby_cal_units.rb	/^  def test_29_prints_calendar_string_args$/;"	f	class:RubyCalUnitTests
-test_30_prints_year_header_num_args_for_year	test/test_ruby_cal_units.rb	/^  def test_30_prints_year_header_num_args_for_year$/;"	f	class:RubyCalUnitTests
-test_31_prints_year_header_str_args_for_year	test/test_ruby_cal_units.rb	/^  def test_31_prints_year_header_str_args_for_year$/;"	f	class:RubyCalUnitTests
-test_32_prints_month_header_num_args_for_year	test/test_ruby_cal_units.rb	/^  def test_32_prints_month_header_num_args_for_year$/;"	f	class:RubyCalUnitTests
-test_33_prints_month_header_str_args_for_year	test/test_ruby_cal_units.rb	/^  def test_33_prints_month_header_str_args_for_year$/;"	f	class:RubyCalUnitTests
-test_34_prints_days_header_for_year	test/test_ruby_cal_units.rb	/^  def test_34_prints_days_header_for_year$/;"	f	class:RubyCalUnitTests
-test_35_prints_year	test/test_ruby_cal_units.rb	/^  def test_35_prints_year$/;"	f	class:RubyCalUnitTests
-test_36_prints_leap_year	test/test_ruby_cal_units.rb	/^  def test_36_prints_leap_year$/;"	f	class:RubyCalUnitTests
-test_37_prints_year_with_string_year	test/test_ruby_cal_units.rb	/^  def test_37_prints_year_with_string_year$/;"	f	class:RubyCalUnitTests
-test_38_6_week_month	test/test_ruby_cal_units.rb	/^  def test_38_6_week_month$/;"	f	class:RubyCalIntegrationTests
-test_39_4_week_month	test/test_ruby_cal_units.rb	/^  def test_39_4_week_month$/;"	f	class:RubyCalIntegrationTests
-test_40_month_entered_as_string	test/test_ruby_cal_units.rb	/^  def test_40_month_entered_as_string$/;"	f	class:RubyCalIntegrationTests
-test_41_month_as_uncapitalized_string	test/test_ruby_cal_units.rb	/^  def test_41_month_as_uncapitalized_string$/;"	f	class:RubyCalIntegrationTests
-test_42_february_leap_year	test/test_ruby_cal_units.rb	/^  def test_42_february_leap_year$/;"	f	class:RubyCalIntegrationTests
-test_43_february_non_leap_year	test/test_ruby_cal_units.rb	/^  def test_43_february_non_leap_year$/;"	f	class:RubyCalIntegrationTests
-test_44_february_400_year_leap_year	test/test_ruby_cal_units.rb	/^  def test_44_february_400_year_leap_year$/;"	f	class:RubyCalIntegrationTests
-test_45_february_common_year_exceptions	test/test_ruby_cal_units.rb	/^  def test_45_february_common_year_exceptions$/;"	f	class:RubyCalIntegrationTests
-test_46_date_in_past	test/test_ruby_cal_units.rb	/^  def test_46_date_in_past$/;"	f	class:RubyCalIntegrationTests
-test_47_date_in_future	test/test_ruby_cal_units.rb	/^  def test_47_date_in_future$/;"	f	class:RubyCalIntegrationTests
-test_48_year	test/test_ruby_cal_units.rb	/^  def test_48_year$/;"	f	class:RubyCalIntegrationTests
-test_49_leap_year	test/test_ruby_cal_units.rb	/^  def test_49_leap_year$/;"	f	class:RubyCalIntegrationTests
-test_50_400_year_leap_year	test/test_ruby_cal_units.rb	/^  def test_50_400_year_leap_year$/;"	f	class:RubyCalIntegrationTests
-test_51_common_century_exception	test/test_ruby_cal_units.rb	/^  def test_51_common_century_exception$/;"	f	class:RubyCalIntegrationTests
+test_27_prints_year_header_num_args_for_year	test/test_ruby_cal_units.rb	/^  def test_27_prints_year_header_num_args_for_year$/;"	f	class:RubyCalUnitTests
+test_28_prints_year_header_str_args_for_year	test/test_ruby_cal_units.rb	/^  def test_28_prints_year_header_str_args_for_year$/;"	f	class:RubyCalUnitTests
+test_29_prints_month_header_num_args_for_year	test/test_ruby_cal_units.rb	/^  def test_29_prints_month_header_num_args_for_year$/;"	f	class:RubyCalUnitTests
+test_30_prints_month_header_str_args_for_year	test/test_ruby_cal_units.rb	/^  def test_30_prints_month_header_str_args_for_year$/;"	f	class:RubyCalUnitTests
+test_31_prints_days_header_for_year	test/test_ruby_cal_units.rb	/^  def test_31_prints_days_header_for_year$/;"	f	class:RubyCalUnitTests
+test_32_prints_year	test/test_ruby_cal_units.rb	/^  def test_32_prints_year$/;"	f	class:RubyCalUnitTests
+test_33_prints_leap_year	test/test_ruby_cal_units.rb	/^  def test_33_prints_leap_year$/;"	f	class:RubyCalUnitTests
+test_34_prints_year_with_string_year	test/test_ruby_cal_units.rb	/^  def test_34_prints_year_with_string_year$/;"	f	class:RubyCalUnitTests
+test_35_6_week_month	test/test_ruby_cal_units.rb	/^  def test_35_6_week_month$/;"	f	class:RubyCalIntegrationTests
+test_36_4_week_month	test/test_ruby_cal_units.rb	/^  def test_36_4_week_month$/;"	f	class:RubyCalIntegrationTests
+test_37_month_entered_as_string	test/test_ruby_cal_units.rb	/^  def test_37_month_entered_as_string$/;"	f	class:RubyCalIntegrationTests
+test_38_month_as_uncapitalized_string	test/test_ruby_cal_units.rb	/^  def test_38_month_as_uncapitalized_string$/;"	f	class:RubyCalIntegrationTests
+test_39_month_as_partial_string	test/test_ruby_cal_units.rb	/^  def test_39_month_as_partial_string$/;"	f	class:RubyCalIntegrationTests
+test_40_february_leap_year	test/test_ruby_cal_units.rb	/^  def test_40_february_leap_year$/;"	f	class:RubyCalIntegrationTests
+test_41_february_non_leap_year	test/test_ruby_cal_units.rb	/^  def test_41_february_non_leap_year$/;"	f	class:RubyCalIntegrationTests
+test_42_february_400_year_leap_year	test/test_ruby_cal_units.rb	/^  def test_42_february_400_year_leap_year$/;"	f	class:RubyCalIntegrationTests
+test_43_february_common_year_exceptions	test/test_ruby_cal_units.rb	/^  def test_43_february_common_year_exceptions$/;"	f	class:RubyCalIntegrationTests
+test_44_date_in_past	test/test_ruby_cal_units.rb	/^  def test_44_date_in_past$/;"	f	class:RubyCalIntegrationTests
+test_45_date_in_future	test/test_ruby_cal_units.rb	/^  def test_45_date_in_future$/;"	f	class:RubyCalIntegrationTests
+test_46_year	test/test_ruby_cal_units.rb	/^  def test_46_year$/;"	f	class:RubyCalIntegrationTests
+test_47_leap_year	test/test_ruby_cal_units.rb	/^  def test_47_leap_year$/;"	f	class:RubyCalIntegrationTests
+test_48_400_year_leap_year	test/test_ruby_cal_units.rb	/^  def test_48_400_year_leap_year$/;"	f	class:RubyCalIntegrationTests
+test_49_common_century_exception	test/test_ruby_cal_units.rb	/^  def test_49_common_century_exception$/;"	f	class:RubyCalIntegrationTests

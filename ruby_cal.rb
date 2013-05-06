@@ -1,7 +1,7 @@
-# Encoding: utf-8
+# -*- encoding : utf-8 -*-
 
-require_relative 'cal_year'
 require_relative 'cal_month'
+require_relative 'cal_year'
 
 class Cal
   attr_reader :month, :year
