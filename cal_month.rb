@@ -1,8 +1,20 @@
-# require "ruby_cal"
 class Month
   attr_reader :week, :month, :year, :calendar
 
-  MONTHS = %w( January February March April May June July August September October November December )
+  MONTHS = %w(
+    January
+    February
+    March
+    April
+    May
+    June
+    July
+    August
+    September
+    October
+    November
+    December
+  )
 
   def initialize month_arg, year_arg
     @calendar, @month, @year = "", month_arg, year_arg
@@ -69,7 +81,7 @@ class Month
     elsif months_with_30_days.include? month
       30
     else
-      (year % 4 != 0 or year % 100 === 0 && year % 400 != 0) ? 28 : 29
+      year % 4 != 0 || year % 100 === 0 && year % 400 != 0 ? 28 : 29
     end
   end
 

@@ -35,8 +35,8 @@ class Cal
   end
 
   def find_matching_month month_arg
-    MONTHS.each_with_index do | the_month, month_position |
-      @month = (month_position + 1) if /^#{month_arg.downcase}/ =~ the_month.downcase
+    MONTHS.each_with_index do | month, month_position |
+      @month = (month_position + 1) if /^#{month_arg.downcase}/ =~ month.downcase
     end
   end
 

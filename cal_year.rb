@@ -1,18 +1,27 @@
-# require "ruby_cal"
-
 class Year
   attr_reader :week, :month, :year, :calendar, :month_counter
 
-  MONTHS = %w( January February March April May June July August September October November December )
+  MONTHS = %w(
+    January
+    February
+    March
+    April
+    May
+    June
+    July
+    August
+    September
+    October
+    November
+    December
+  )
 
   def initialize month_arg, year_arg = nil
     year_arg, month_arg = month_arg, nil if year_arg.nil?
-
     @calendar, @month_counter, @month, @year = "", 1, month_arg, year_arg
   end
 
   def render_year
-
     calendar << add_year_header
     start_month = 0
     4.times do
@@ -33,16 +42,15 @@ class Year
     3.times do | month_increment |
       this_month = MONTHS[start_month + month_increment]
 
-      # centered_month = "#{ this_month }".center(20) + "  "
-      # centered_month = centered_month.rstrip + "\n" if month_increment === 2
-      # month_header << centered_month
+      centered_month = "#{ this_month }".center(20) + "  "
+      centered_month = centered_month.rstrip + "\n" if month_increment === 2
+      month_header << centered_month
 
-      if month_increment === 2
-        month_header << "#{ this_month }".center(20).rstrip + "\n"
-      else
-        month_header << "#{ this_month }".center(20) + "  "
-      end
-
+    #   if month_increment === 2
+    #     month_header << "#{ this_month }".center(20).rstrip + "\n"
+    #   else
+    #     month_header << "#{ this_month }".center(20) + "  "
+    #   end
     end
 
     month_header
@@ -69,16 +77,15 @@ class Year
   end
 
   def create_weeks calendar_unit
-
     6.times do | week_position |
       @week = ""
 
       7.times do
-       add_day calendar_unit
-       calendar_unit += 1
+        add_day calendar_unit
+        calendar_unit += 1
       end
-
       month_counter % 3 === 0 ? @week = week.rstrip + "\n" : week << " "
+
       @week_array[week_position] << week
     end
   end

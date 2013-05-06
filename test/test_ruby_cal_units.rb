@@ -59,43 +59,55 @@ class RubyCalUnitTests < Test::Unit::TestCase
     end
   end
 
-  def test_06a_returns_error_if_invalid_month
+  def test_07_returns_error_if_invalid_month
     assert_raise NameError do
       calendar = Cal.new Arpil, 2013
     end
   end
 
-  def test_06b_return_error_if_invalid_partial_month
+  def test_08_return_error_if_invalid_partial_month
     assert_raise NameError do
       calendar = Cal.new Jug, 2013
     end
   end
 
-  def test_07_returns_error_if_nonexistent_month
+  def test_09_returns_error_if_nonexistent_month
     assert_raise ArgumentError do
       calendar = Cal.new 13, 2013
     end
   end
 
-  def test_08_returns_error_if_nonexistent_month
+  def test_10_returns_error_if_nonexistent_month
     assert_raise ArgumentError do
       calendar = Cal.new 0, 2013
     end
   end
 
-  def test_09_correctly_prints_month_header
+  def test_10a_returns_error_if_5_digit_year
+    assert_raise ArgumentError do
+      calendar = Cal.new 20130
+    end
+  end
+
+  def test_10b_returns_error_if_3_digit_year
+    assert_raise ArgumentError do
+      calendar = Cal.new 201
+    end
+  end
+
+  def test_11_correctly_prints_month_header
     calendar = Month.new 2, 2015
     month_and_year = "   February 2015\n"
     assert_equal month_and_year, calendar.add_month_header
   end
 
-  def test_10_correctly_prints_days_header
+  def test_12_correctly_prints_days_header
     calendar = Month.new 9, 2007
     days = "Su Mo Tu We Th Fr Sa\n"
     assert_equal days, calendar.add_week_header
   end
 
-  def test_11_add_calendar_returns_combined_headers
+  def test_13_add_calendar_returns_combined_headers
     calendar = Month.new 11, 1962
     month_and_year = "   November 1962\n"
     days = "Su Mo Tu We Th Fr Sa\n"
@@ -104,40 +116,30 @@ class RubyCalUnitTests < Test::Unit::TestCase
     assert_equal headers, calendar.add_month_header + calendar.add_week_header
   end
 
-  def test_12_returns_correct_first_day_of_month
+  def test_14_returns_correct_first_day_of_month
     calendar = Month.new 4, 2013
     assert_equal 2, calendar.get_first_of_month
   end
 
-  def test_13_returns_correct_first_day_february
+  def test_15_returns_correct_first_day_february
     calendar = Month.new 2, 2013
     assert_equal 6, calendar.get_first_of_month
   end
 
-  def test_14_returns_correct_first_day_leap_year
+  def test_16_returns_correct_first_day_leap_year
     calendar = Month.new 3, 2012
     assert_equal 5, calendar.get_first_of_month
   end
 
-  def test_15_returns_correct_first_day_common_century
+  def test_17_returns_correct_first_day_common_century
     calendar = Month.new 3, 2100
     assert_equal 2, calendar.get_first_of_month
   end
 
-  def test_16_returns_correct_first_day_400_years
+  def test_18_returns_correct_first_day_400_years
     calendar = Month.new 7, 2000
     assert_equal 0, calendar.get_first_of_month
   end
-
-  # def test_17_spaces_count_correct_sat
-  #   calendar = Month.new 7, 2000
-  #   assert_equal 6, calendar.get_blank_units( 0 )
-  # end
-
-  # def test_18_spaces_count_correct_rest
-  #   calendar = Month.new 3, 2012
-  #   assert_equal 4, calendar.get_blank_units( 5 )
-  # end
 
   def test_19_day_count_feb_leap_year
     calendar = Month.new 2, 1992
