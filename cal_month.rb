@@ -1,62 +1,71 @@
 # Encoding: UTF-8
 
-class Month
-  attr_reader :week, :month, :year, :calendar
+MONTHS = %w(
+  January
+  February
+  March
+  April
+  May
+  June
+  July
+  August
+  September
+  October
+  November
+  December
+)
 
-  MONTHS = %w(
-    January
-    February
-    March
-    April
-    May
-    June
-    July
-    August
-    September
-    October
-    November
-    December
-  )
+class Month
+
+  attr_accessor :week, :month, :year, :calendar
 
   def initialize(month_arg, year_arg)
     @calendar, @month, @year = '', month_arg, year_arg
   end
 
   def render_month
-    calendar << add_month_header << add_week_header << add_weeks
+    calendar << add_month_head << add_week_head << add_weeks
   end
 
-  def add_month_header
+  def add_month_head
     this_month = MONTHS[month - 1]
     "#{ this_month } #{ year }".center(20).rstrip + "\n"
   end
 
-  def add_week_header
+  def add_week_head
     "Su Mo Tu We Th Fr Sa\n"
   end
 
-  def add_weeks
-    weeks, calendar_unit, @date = '', 1, 1
+  def add_weeks (year_trigger = nil)
+    @trigger = year_trigger
+    weeks, @calendar_unit, @date = '', 1, 1
 
     6.times do
-      @week = ''
-      7.times do
-        add_day calendar_unit
-        @week = week.rstrip + "\n" if calendar_unit % 7 === 0
-        calendar_unit += 1
-      end
+      build_week
       weeks << week
     end
-
     weeks
   end
 
-  def add_day(calendar_unit)
+  def build_week
+    @week = ''
+    7.times do
+      build_day
+      if @trigger.nil?
+        @week = week.rstrip + "\n" if @calendar_unit % 7 === 0
+      else
+        @week = week + "\n" if @calendar_unit % 7 === 0
+      end
+      @calendar_unit += 1
+    end
+  end
+
+  def build_day
     first_day = get_first_of_month
     blank_units = first_day == 0 ? 6 : first_day - 1
     month_length = get_month_length
 
-    if calendar_unit <= blank_units
+    if @calendar_unit <= blank_units || @date > month_length
       week << '   '
     elsif @date <= month_length
       (1..9).include?(@date) ? week << " #{ @date } " : week << "#{ @date } "
