@@ -27,7 +27,6 @@ class Cal
   def initialize(month_arg, year_arg = nil)
     year_arg, month_arg = month_arg, nil if year_arg.nil?
 
-    @month = month_arg
     month_arg = month_arg.to_i if month_arg =~ /^[0-9]([0-9]*)?$/
 
     case month_arg
