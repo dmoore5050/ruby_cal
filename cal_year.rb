@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# Encoding: UTF-8
 
 class Year
   attr_reader :week, :month, :year, :calendar, :month_counter
@@ -44,15 +44,11 @@ class Year
     3.times do | month_increment |
       this_month = MONTHS[start_month + month_increment]
 
-      centered_month = "#{ this_month }".center(20) + '  '
-      centered_month = centered_month.rstrip + "\n" if month_increment === 2
-      month_header << centered_month
-
-    #   if month_increment === 2
-    #     month_header << "#{ this_month }".center(20).rstrip + "\n"
-    #   else
-    #     month_header << "#{ this_month }".center(20) + "  "
-    #   end
+      if month_increment === 2
+        month_header << "#{ this_month }".center(20).rstrip + "\n"
+      else
+        month_header << "#{ this_month }".center(20) + '  '
+      end
     end
 
     month_header
@@ -78,10 +74,10 @@ class Year
   end
 
   def create_weeks(calendar_unit)
-    6.times do | week_position |
+    6.times do | week_position | # builds 6 individual weeks per month
       @week = ''
 
-      7.times do
+      7.times do  # builds 7 individual spaces per week
         add_day calendar_unit
         calendar_unit += 1
       end
@@ -110,6 +106,7 @@ class Year
     m = month_values[month_counter - 1]
     y = (3..12).include?(month_counter) ? year : year - 1
 
+    #Zeller's Congruence: http://en.wikipedia.org/wiki/Zeller's_congruence
     (1 + ((m * 26) / 10) + y + (y / 4) + (6 * (y / 100)) + (y / 400)) % 7
   end
 
@@ -127,3 +124,4 @@ class Year
   end
 
 end
+

@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# Encoding: UTF-8
 
 class Month
   attr_reader :week, :month, :year, :calendar
@@ -70,6 +70,7 @@ class Month
     m = month_values[month - 1]
     y = (3..12).include?(month) ? year : year - 1
 
+    #Zeller's Congruence: http://en.wikipedia.org/wiki/Zeller's_congruence
     (1 + ((m * 26) / 10) + y + (y / 4) + (6 * (y / 100)) + (y / 400)) % 7
   end
 
@@ -87,3 +88,4 @@ class Month
   end
 
 end
+

@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# Encoding: UTF-8
 
 require_relative 'ruby_cal'
 
@@ -7,3 +7,4 @@ year = ARGV[1]
 
 calendar = Cal.new month, year
 puts calendar.print_calendar
+

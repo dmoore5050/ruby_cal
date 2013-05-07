@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# Encoding: UTF-8
 
 require_relative 'cal_month'
 require_relative 'cal_year'

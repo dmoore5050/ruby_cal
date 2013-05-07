@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# Encoding: UTF-8
 
 require 'test/unit'
 require './ruby_cal'
@@ -293,3 +293,4 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
   end
 
 end
+
