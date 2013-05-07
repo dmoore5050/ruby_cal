@@ -47,15 +47,19 @@ class Cal
   end
 
   def raise_string_match_error(month_arg)
-    unless MONTHS.find { |month| /^#{ month_arg.downcase }/ =~ month.downcase }
+    unless MONTHS.find { | month | match_case? month_arg, month }
       raise NameError, MONTH_ERROR
     end
   end
 
   def find_matching_month(month_arg)
     MONTHS.each_with_index do | month, month_position |
-      @month = (month_position + 1) if /^#{ month_arg.downcase }/ =~ month.downcase
+      @month = (month_position + 1) if match_case? month_arg, month
     end
+  end
+
+  def match_case?(month_arg, month)
+    /^#{ month_arg.downcase }/ =~ month.downcase
   end
 
   def print_calendar

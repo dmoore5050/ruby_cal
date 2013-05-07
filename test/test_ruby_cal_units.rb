@@ -99,23 +99,23 @@ class RubyCalUnitTests < Test::Unit::TestCase
 
   def test_11_correctly_prints_month_header
     calendar = Month.new 2, 2015
-    month_and_year = "   February 2015\n"
-    assert_equal month_and_year, calendar.add_month_header
+    expected = "   February 2015\n"
+    assert_equal expected, calendar.add_month_header
   end
 
   def test_12_correctly_prints_days_header
     calendar = Month.new 9, 2007
-    days = "Su Mo Tu We Th Fr Sa\n"
-    assert_equal days, calendar.add_week_header
+    expected = "Su Mo Tu We Th Fr Sa\n"
+    assert_equal expected, calendar.add_week_header
   end
 
   def test_13_add_calendar_returns_combined_headers
     calendar = Month.new 11, 1962
     month_and_year = "   November 1962\n"
     days = "Su Mo Tu We Th Fr Sa\n"
-    headers = month_and_year + days
+    expected = month_and_year + days
 
-    assert_equal headers, calendar.add_month_header + calendar.add_week_header
+    assert_equal expected, calendar.add_month_header + calendar.add_week_header
   end
 
   def test_14_returns_correct_first_day_of_month
@@ -185,32 +185,32 @@ class RubyCalUnitTests < Test::Unit::TestCase
 
   def test_27_prints_year_header_num_args_for_year
     calendar = Year.new 2015
-    year_header = "                             2015\n\n"
-    assert_equal year_header, calendar.add_year_header
+    expected = "                             2015\n\n"
+    assert_equal expected, calendar.add_year_header
   end
 
   def test_28_prints_year_header_str_args_for_year
     calendar = Year.new '2015'
-    year_header = "                             2015\n\n"
-    assert_equal year_header, calendar.add_year_header
+    expected = "                             2015\n\n"
+    assert_equal expected, calendar.add_year_header
   end
 
   def test_29_prints_month_header_num_args_for_year
     calendar = Year.new 2015
-    months_header = "       April                  May                   June\n"
-    assert_equal months_header, calendar.add_month_header(3)
+    expected = "       April                  May                   June\n"
+    assert_equal expected, calendar.add_month_header(3)
   end
 
   def test_30_prints_month_header_str_args_for_year
     calendar = Year.new '2015'
-    months_header = "      January               February               March\n"
-    assert_equal months_header, calendar.add_month_header(0)
+    expected = "      January               February               March\n"
+    assert_equal expected, calendar.add_month_header(0)
   end
 
   def test_31_prints_days_header_for_year
     calendar = Year.new 2007
-    days = "Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa\n"
-    assert_equal days, calendar.add_week_header
+    expected = "Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa\n"
+    assert_equal expected, calendar.add_week_header
   end
 
   def test_32_prints_year
