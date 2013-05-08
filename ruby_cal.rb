@@ -4,7 +4,6 @@ require_relative 'cal_month'
 require_relative 'cal_year'
 
 class Cal
-  attr_reader :month, :year
 
   MONTH_ERROR = 'Valid months are 1..12, January..December, Jan..Dec'
   YEAR_ERROR = 'Valid years are 1800..3000'
@@ -22,8 +21,7 @@ class Cal
     when Numeric
       raise ArgumentError, MONTH_ERROR unless (1..12).include? month_arg
       @month = month_arg
-    when NilClass
-      @month = nil
+    when NilClass then @month = nil
     end
 
     raise ArgumentError, YEAR_ERROR unless (1800..3000).include? year_arg.to_i
@@ -32,32 +30,32 @@ class Cal
   end
 
   def check_match_error(month_arg)
-    unless MONTHS.find { | month | months_match? month_arg, month }
+    unless MONTHS.find { | the_month | months_match? month_arg, the_month }
       raise NameError, MONTH_ERROR
     end
   end
 
   def find_matching_month(month_arg)
-    MONTHS.each_with_index do | month, month_position |
-      @month = (month_position + 1) if months_match? month_arg, month
+    MONTHS.each_with_index do | the_month, month_position |
+      @month = (month_position + 1) if months_match? month_arg, the_month
     end
   end
 
-  def months_match?(month_arg, month)
-    /^#{ month_arg.downcase }/ =~ month.downcase
+  def months_match?(month_arg, the_month)
+    /^#{ month_arg.downcase }/ =~ the_month.downcase
   end
 
   def print_calendar
-    month.nil? ? build_year : build_month
+    @month.nil? ? build_year : build_month
   end
 
   def build_year
-    new_year = Year.new year
+    new_year = Year.new @year
     new_year.render_year
   end
 
   def build_month
-    new_month = Month.new month, year
+    new_month = Month.new @month, @year
     new_month.render_month
   end
 
