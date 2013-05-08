@@ -1,8 +1,19 @@
 ##Features:
 
-* Print any month from 1800-3000 when given following input types:
- 1. April, april
- 2. Apr\*, apr\*
- 3. 4, 04, 004
+* Print any month 1-12 of any year 1-9999 when given following month/year input types:
 
-* Print any year from 1800-3000 when given input type: 2013.
+ * April <year>
+ * april <year>
+ * Apr\* <year>
+ * apr\* <year>
+ *     4 <year>
+ *    04 <year>
+ *   004 <year>
+
+* Print any year from 1-9999 when given input type:
+
+ * 2013
+ *    1
+ *   01
+ *  001
+ * 0001

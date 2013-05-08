@@ -4,13 +4,13 @@ require_relative 'cal_month'
 
 class Year
 
-  def initialize(year_arg)
-    @year = year_arg
+  def initialize(year_arg, calendar_type = nil)
+    @year, @calendar_type = year_arg, calendar_type
   end
 
   def render_year
     @month_counter, @calendar = 1, ''
-    @calendar << @year.to_s.center(62).rstrip + "\n\n"
+    @calendar << build_year_header
     4.times do
       @calendar << build_months
     end
@@ -18,12 +18,23 @@ class Year
     @calendar
   end
 
+  def build_year_header
+    if @year < 1000
+      header_year = " #{@year}"
+    else
+      header_year = @year
+    end
+
+    header_year.to_s.center(62).rstrip + "\n\n"
+  end
+
   def build_months
     @week_array, year_trigger = ['', '', '', '', '', '', '', ''], 'Active'
+    get_calendar_type if @year === 1752
 
     3.times do
-      new_month = Month.new @month_counter, @year
-      rendered_weeks = new_month.render_month(year_trigger).split("\n")
+      new_month = Month.new @month_counter, @year, @calendar_type
+      rendered_weeks = new_month.render_month(year_trigger).split('X')
       rendered_weeks.each_with_index do | week, i |
         format_weeks week, i
       end
@@ -31,6 +42,14 @@ class Year
     end
 
     @week_array.join
+  end
+
+  def get_calendar_type
+    if @month_counter < 9
+      @calendar_type = 'Julian'
+    elsif @month_counter > 9
+      @calendar_type = 'Gregorian'
+    end
   end
 
   def format_weeks(week, i)

@@ -17,47 +17,53 @@ MONTHS = %w(
 
 class Month
 
-  def initialize(month_arg, year_arg)
-    @month, @year = month_arg, year_arg
+  def initialize(month_arg, year_arg, calendar_type = nil)
+    @month, @year, @calendar_type = month_arg, year_arg, calendar_type
   end
 
   def render_month(year_trigger = nil)
-    @calendar, @trigger = '', year_trigger
+    @calendar, @year_trigger = '', year_trigger
     @calendar << add_month_head << add_week_head << add_weeks
   end
 
   def add_month_head
     this_month = MONTHS[@month - 1]
-    if @trigger.nil?
+    if @year_trigger.nil?
       "#{ this_month } #{ @year }".center(20).rstrip + "\n"
     else
-      "#{ this_month }".center(20) + " \n"
+      "#{ this_month }".center(20) + ' X'
     end
   end
 
   def add_week_head
-    @trigger.nil? ? "Su Mo Tu We Th Fr Sa\n" : "Su Mo Tu We Th Fr Sa \n"
+    @year_trigger.nil? ? "Su Mo Tu We Th Fr Sa\n" : 'Su Mo Tu We Th Fr Sa X'
   end
 
   def add_weeks
-    weeks, @calendar_unit, @date = '', 1, 1
+    if @month === 9 && @year === 1752 && @year_trigger.nil?
+      "       1  2 14 15 16\n17 18 19 20 21 22 23\n24 25 26 27 28 29 30\n\n\n\n"
+    elsif @month === 9 && @year === 1752
+      "       1  2 14 15 16 X17 18 19 20 21 22 23 X24 25 26 27 28 29 30 X X X X"
+    else
+      weeks, @calendar_unit, @date = '', 1, 1
 
-    6.times do
-      build_week
-      weeks << @week
+      6.times do
+        build_week
+        weeks << @week
+      end
+
+      weeks
     end
-
-    weeks
   end
 
   def build_week
     @week = ''
     7.times do
       build_day
-      if @trigger.nil?
+      if @year_trigger.nil?
         @week = @week.rstrip + "\n" if @calendar_unit % 7 === 0
       else
-        @week = @week + "\n" if @calendar_unit % 7 === 0
+        @week = @week + 'X' if @calendar_unit % 7 === 0
       end
       @calendar_unit += 1
     end
@@ -83,7 +89,11 @@ class Month
     y = (3..12).include?(@month) ? @year : @year - 1
 
     # Zeller's Congruence: en.wikipedia.org/wiki/zeller's_congruence
-    (1 + ((m * 26) / 10) + y + (y / 4) + (6 * (y / 100)) + (y / 400)) % 7
+    if @calendar_type === 'Gregorian'
+      (1 + ((m * 26) / 10) + y + (y / 4) + (6 * (y / 100)) + (y / 400)) % 7
+    elsif @calendar_type === 'Julian'
+      (1 + ((m * 26) / 10) + y + (y / 4) + 5) % 7
+    end
   end
 
   def get_month_length
@@ -95,7 +105,11 @@ class Month
     elsif months_with_30_days.include? @month
       30
     else
-      @year % 4 != 0 || @year % 100 === 0 && @year % 400 != 0 ? 28 : 29
+      if @calendar_type === 'Gregorian'
+        @year % 4 != 0 || @year % 100 === 0 && @year % 400 != 0 ? 28 : 29
+      elsif @calendar_type === 'Julian'
+        @year % 4 != 0 ? 28 : 29
+      end
     end
   end
 
