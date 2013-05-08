@@ -17,7 +17,7 @@ MONTHS = %w(
 
 class Month
 
-  attr_accessor :week, :month, :year, :calendar
+  attr_reader :week, :month, :year, :calendar
 
   def initialize(month_arg, year_arg)
     @calendar, @month, @year = '', month_arg, year_arg

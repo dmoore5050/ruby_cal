@@ -7,7 +7,7 @@ class Year
   attr_reader :year, :calendar, :month_counter, :year_trigger
 
   def initialize(year_arg)
-    @calendar, @month_counter, @year_trigger, @year = '', 1, 0, year_arg
+    @calendar, @month_counter, @year_trigger, @year = '', 1, "Active", year_arg
   end
 
   def render_year
@@ -30,6 +30,7 @@ class Year
       end
       @month_counter += 1
     end
+
     @week_array.join
   end
 

@@ -17,7 +17,7 @@ class Cal
     case month_arg
     when String
       raise ArgumentError, MONTH_ERROR if month_arg.size < 3
-      raise_string_match_error month_arg
+      check_match_error month_arg
       find_matching_month month_arg
     when Numeric
       raise ArgumentError, MONTH_ERROR unless (1..12).include? month_arg
@@ -31,19 +31,19 @@ class Cal
 
   end
 
-  def raise_string_match_error(month_arg)
-    unless MONTHS.find { | month | find_match? month_arg, month }
+  def check_match_error(month_arg)
+    unless MONTHS.find { | month | months_match? month_arg, month }
       raise NameError, MONTH_ERROR
     end
   end
 
   def find_matching_month(month_arg)
     MONTHS.each_with_index do | month, month_position |
-      @month = (month_position + 1) if find_match? month_arg, month
+      @month = (month_position + 1) if months_match? month_arg, month
     end
   end
 
-  def find_match?(month_arg, month)
+  def months_match?(month_arg, month)
     /^#{ month_arg.downcase }/ =~ month.downcase
   end
 
