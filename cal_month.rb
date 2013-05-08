@@ -23,21 +23,25 @@ class Month
     @calendar, @month, @year = '', month_arg, year_arg
   end
 
-  def render_month
+  def render_month(year_trigger = nil)
+    @trigger = year_trigger
     calendar << add_month_head << add_week_head << add_weeks
   end
 
   def add_month_head
     this_month = MONTHS[month - 1]
-    "#{ this_month } #{ year }".center(20).rstrip + "\n"
+    if @trigger.nil?
+      "#{ this_month } #{ year }".center(20).rstrip + "\n"
+    else
+      "#{ this_month }".center(20) + " \n"
+    end
   end
 
   def add_week_head
-    "Su Mo Tu We Th Fr Sa\n"
+    @trigger.nil? ? "Su Mo Tu We Th Fr Sa\n" : "Su Mo Tu We Th Fr Sa \n"
   end
 
-  def add_weeks (year_trigger = nil)
-    @trigger = year_trigger
+  def add_weeks
     weeks, @calendar_unit, @date = '', 1, 1
 
     6.times do
@@ -97,4 +101,3 @@ class Month
   end
 
 end
-

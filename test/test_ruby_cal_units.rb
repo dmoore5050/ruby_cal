@@ -183,38 +183,6 @@ class RubyCalUnitTests < Test::Unit::TestCase
     assert_equal `cal 6 1937`, calendar.render_month
   end
 
-  def test_27_prints_year_header_num_args_for_year
-    calendar = Year.new 2015
-    expected = "                             2015\n\n"
-    assert_equal expected, calendar.add_year_head
-  end
-
-  def test_28_prints_year_header_str_args_for_year
-    calendar = Year.new '2015'
-    expected = "                             2015\n\n"
-    assert_equal expected, calendar.add_year_head
-  end
-
-  def test_29_prints_month_header_num_args_for_year
-    calendar = Year.new 2015
-    expected = "       April                  May                   June\n"
-    assert_equal expected, calendar.add_month_head(3)
-  end
-
-  def test_30_prints_month_header_str_args_for_year
-    calendar = Year.new '2015'
-    expected = "      January               February               March\n"
-    assert_equal expected, calendar.add_month_head(0)
-  end
-
-  def test_31_prints_days_header_for_year
-    calendar = Year.new 2007
-    expected = 'Su Mo Tu We Th Fr Sa  '
-    expected << 'Su Mo Tu We Th Fr Sa  '
-    expected << "Su Mo Tu We Th Fr Sa\n"
-    assert_equal expected, calendar.add_week_head
-  end
-
   def test_32_prints_year
     calendar = Cal.new 1969
     assert_equal `cal 1969`, calendar.print_calendar
