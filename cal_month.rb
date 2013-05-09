@@ -17,8 +17,22 @@ MONTHS = %w(
 
 class Month
 
-  def initialize(month_arg, year_arg, calendar_type = nil)
-    @month, @year, @calendar_type = month_arg, year_arg, calendar_type
+  def initialize(month_arg, year_arg)
+    @month, @year = month_arg, year_arg
+
+    set_calendar_type
+  end
+
+  def set_calendar_type
+    case
+    when @year < 1752 then @calendar_type = 'Julian'
+    when @year > 1753 then @calendar_type = 'Gregorian'
+    when @year === 1752
+      case
+      when @month < 9 then @calendar_type = 'Julian'
+      when @month > 9 then @calendar_type = 'Gregorian'
+      end
+    end
   end
 
   def render_month(year_trigger = nil)
@@ -43,7 +57,7 @@ class Month
     if @month === 9 && @year === 1752 && @year_trigger.nil?
       "       1  2 14 15 16\n17 18 19 20 21 22 23\n24 25 26 27 28 29 30\n\n\n\n"
     elsif @month === 9 && @year === 1752
-      "       1  2 14 15 16 X17 18 19 20 21 22 23 X24 25 26 27 28 29 30 X X X X"
+      '       1  2 14 15 16 X17 18 19 20 21 22 23 X24 25 26 27 28 29 30 X X X X'
     else
       weeks, @calendar_unit, @date = '', 1, 1
 
@@ -100,15 +114,14 @@ class Month
     months_with_31_days = [1, 3, 5, 7, 8, 10, 12]
     months_with_30_days = [4, 6, 9, 11]
 
-    if months_with_31_days.include? @month
-      31
-    elsif months_with_30_days.include? @month
-      30
+    case
+    when (months_with_31_days.include? @month) then 31
+    when (months_with_30_days.include? @month) then 30
     else
       if @calendar_type === 'Gregorian'
         @year % 4 != 0 || @year % 100 === 0 && @year % 400 != 0 ? 28 : 29
       elsif @calendar_type === 'Julian'
-        @year % 4 != 0 ? 28 : 29
+        @year % 4 === 0 ? 29 : 28
       end
     end
   end

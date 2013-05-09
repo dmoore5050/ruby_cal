@@ -80,19 +80,19 @@ class RubyCalUnitTests < Test::Unit::TestCase
   end
 
   def test_13_correctly_prints_month_header
-    calendar = Month.new 2, 2015, 'Gregorian'
+    calendar = Month.new 2, 2015
     expected = "   February 2015\n"
     assert_equal expected, calendar.add_month_head
   end
 
   def test_14_correctly_prints_days_header
-    calendar = Month.new 9, 2007, 'Gregorian'
+    calendar = Month.new 9, 2007
     expected = "Su Mo Tu We Th Fr Sa\n"
     assert_equal expected, calendar.add_week_head
   end
 
   def test_15_add_calendar_returns_combined_headers
-    calendar = Month.new 11, 1962, 'Gregorian'
+    calendar = Month.new 11, 1962
     month_and_year = "   November 1962\n"
     days = "Su Mo Tu We Th Fr Sa\n"
     expected = month_and_year + days
@@ -101,67 +101,67 @@ class RubyCalUnitTests < Test::Unit::TestCase
   end
 
   def test_16_returns_correct_first_day_of_month
-    calendar = Month.new 4, 2013, 'Gregorian'
+    calendar = Month.new 4, 2013
     assert_equal 2, calendar.get_first_of_month
   end
 
   def test_17_returns_correct_first_day_february
-    calendar = Month.new 2, 2013, 'Gregorian'
+    calendar = Month.new 2, 2013
     assert_equal 6, calendar.get_first_of_month
   end
 
   def test_18_returns_correct_first_day_leap_year
-    calendar = Month.new 3, 2012, 'Gregorian'
+    calendar = Month.new 3, 2012
     assert_equal 5, calendar.get_first_of_month
   end
 
   def test_19_returns_correct_first_day_common_century
-    calendar = Month.new 3, 2100, 'Gregorian'
+    calendar = Month.new 3, 2100
     assert_equal 2, calendar.get_first_of_month
   end
 
   def test_20_returns_correct_first_day_400_years
-    calendar = Month.new 7, 2000, 'Gregorian'
+    calendar = Month.new 7, 2000
     assert_equal 0, calendar.get_first_of_month
   end
 
   def test_21_day_count_feb_leap_year
-    calendar = Month.new 2, 1992, 'Gregorian'
+    calendar = Month.new 2, 1992
     assert_equal 29, calendar.get_month_length
   end
 
   def test_22_daycount_feb_non_leap_year
-    calendar = Month.new 2, 1993, 'Gregorian'
+    calendar = Month.new 2, 1993
     assert_equal 28, calendar.get_month_length
   end
 
   def test_23_daycount_30_day_month
-    calendar = Month.new 4, 1979, 'Gregorian'
+    calendar = Month.new 4, 1979
     assert_equal 30, calendar.get_month_length
   end
 
   def test_24_daycount_31_day_month
-    calendar = Month.new 10, 1859, 'Gregorian'
+    calendar = Month.new 10, 1859
     assert_equal 31, calendar.get_month_length
   end
 
   def test_25_prints_calendar_feb_non_leap_year
-    calendar = Month.new 2, 2013, 'Gregorian'
+    calendar = Month.new 2, 2013
     assert_equal `cal 2 2013`, calendar.render_month
   end
 
   def test_26_prints_calendar_feb_leap_year
-    calendar = Month.new 2, 2012, 'Gregorian'
+    calendar = Month.new 2, 2012
     assert_equal `cal 2 2012`, calendar.render_month
   end
 
   def test_27_prints_calendar_other_months
-    calendar = Month.new 5, 1901, 'Gregorian'
+    calendar = Month.new 5, 1901
     assert_equal `cal 5 1901`, calendar.render_month
   end
 
   def test_28_prints_calendar_octal_month
-    calendar = Month.new 06, 1937, 'Gregorian'
+    calendar = Month.new 06, 1937
     assert_equal `cal 6 1937`, calendar.render_month
   end
 
@@ -260,27 +260,27 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
     assert_equal(`cal 9900`, `ruby cal.rb 9900`)
   end
 
-  def test_51_single_digit_year_Julian
+  def test_51_single_digit_year_julian
     assert_equal(`cal 1`, `ruby cal.rb 1`)
   end
 
-  def test_52_0_preceding_year_Julian
+  def test_52_0_preceding_year_julian
     assert_equal(`cal 01`, `ruby cal.rb 01`)
   end
 
-  def test_53_0s_preceding_year_Julian
+  def test_53_0s_preceding_year_julian
     assert_equal(`cal 001`, `ruby cal.rb 001`)
   end
 
-  def test_54_0s_preceding_year_Julian
+  def test_54_0s_preceding_year_julian
     assert_equal(`cal 0001`, `ruby cal.rb 0001`)
   end
 
-  def test_55_two_digit_year_Julian
+  def test_55_two_digit_year_julian
     assert_equal(`cal 10`, `ruby cal.rb 10`)
   end
 
-  def test_56_three_digit_year_Julian
+  def test_56_three_digit_year_julian
     assert_equal(`cal 100`, `ruby cal.rb 100`)
   end
 
@@ -288,23 +288,23 @@ class RubyCalIntegrationTests < Test::Unit::TestCase
     assert_equal(`cal 1752`, `ruby cal.rb 1752`)
   end
 
-  def test_58_September_1752
+  def test_58_september_1752
     assert_equal(`cal 9 1752`, `ruby cal.rb 9 1752`)
   end
 
-  def test_59_february_leap_year_Julian
+  def test_59_february_leap_year_julian
     assert_equal(`cal 2 8`, `ruby cal.rb 2 8`)
   end
 
-  def test_60_february_non_leap_year_Julian
+  def test_60_february_non_leap_year_julian
     assert_equal(`cal 2 9`, `ruby cal.rb 2 9`)
   end
 
-  def test_61_last_Julian_month
+  def test_61_last_julian_month
     assert_equal(`cal 8 1752`, `ruby cal.rb 8 1752`)
   end
 
-  def test_62_first_Gregorian_month
+  def test_62_first_gregorian_month
     assert_equal(`cal 10 1752`, `ruby cal.rb 10 1752`)
   end
 

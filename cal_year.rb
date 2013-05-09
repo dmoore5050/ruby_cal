@@ -4,8 +4,8 @@ require_relative 'cal_month'
 
 class Year
 
-  def initialize(year_arg, calendar_type = nil)
-    @year, @calendar_type = year_arg, calendar_type
+  def initialize(year_arg)
+    @year = year_arg
   end
 
   def render_year
@@ -30,10 +30,9 @@ class Year
 
   def build_months
     @week_array, year_trigger = ['', '', '', '', '', '', '', ''], 'Active'
-    get_calendar_type if @year === 1752
 
     3.times do
-      new_month = Month.new @month_counter, @year, @calendar_type
+      new_month = Month.new @month_counter, @year
       rendered_weeks = new_month.render_month(year_trigger).split('X')
       rendered_weeks.each_with_index do | week, i |
         format_weeks week, i
@@ -42,14 +41,6 @@ class Year
     end
 
     @week_array.join
-  end
-
-  def get_calendar_type
-    if @month_counter < 9
-      @calendar_type = 'Julian'
-    elsif @month_counter > 9
-      @calendar_type = 'Gregorian'
-    end
   end
 
   def format_weeks(week, i)
@@ -61,4 +52,3 @@ class Year
   end
 
 end
-

@@ -6,7 +6,7 @@ require_relative 'cal_year'
 class Cal
 
   MONTH_ERROR = 'Valid months are 1..12, January..December, Jan..Dec'
-  YEAR_ERROR = 'Valid years are 1753..9999'
+  YEAR_ERROR = 'Valid years are 1..9999'
 
   def initialize(month_arg, year_arg = nil)
     year_arg, month_arg = month_arg, nil if year_arg.nil?
@@ -27,24 +27,6 @@ class Cal
     raise ArgumentError, YEAR_ERROR unless (1..9999).include? year_arg.to_i
     @year = year_arg.to_i
 
-    get_calendar_type
-
-  end
-
-  def get_calendar_type
-    if @year < 1752
-      @calendar_type = 'Julian'
-    elsif @year > 1753
-      @calendar_type = 'Gregorian'
-    elsif @year === 1752
-      unless @month.nil?
-        if @month < 9
-          @calendar_type = 'Julian'
-        elsif @month > 9
-          @calendar_type = 'Gregorian'
-        end
-      end
-    end
   end
 
   def check_match_error(month_arg)
@@ -68,12 +50,12 @@ class Cal
   end
 
   def build_year
-    new_year = Year.new @year, @calendar_type
+    new_year = Year.new @year
     new_year.render_year
   end
 
   def build_month
-    new_month = Month.new @month, @year, @calendar_type
+    new_month = Month.new @month, @year
     new_month.render_month
   end
 
