@@ -2,6 +2,9 @@
 
 require_relative 'cal_month'
 
+# The year class utilizes the Month class to build a year, reformatting
+# the months outputted to render a 12-month calendar.
+
 class Year
 
   def initialize(year_arg)

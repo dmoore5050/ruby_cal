@@ -15,6 +15,12 @@ MONTHS = %w(
   December
 )
 
+# Month class is what builds the days, months, and weeks of the calendar.
+# The process determines whether the month is a part of the Gregorian or
+# Julian  calendar, and uses Zeller's Congruence and a series of loops to
+# produce each month. September 1752 is produced in literal form rather than
+# systematically due to its unique composition.
+
 class Month
 
   def initialize(month_arg, year_arg)
@@ -39,6 +45,9 @@ class Month
     @calendar, @year_trigger = '', year_trigger
     @calendar << add_month_head << add_week_head << add_weeks
   end
+
+  # X is abitrarilly used in the following methods to signify the split that
+  # the year method will use to split and reformat the rendered months.
 
   def add_month_head
     this_month = MONTHS[@month - 1]

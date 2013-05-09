@@ -3,6 +3,10 @@
 require_relative 'cal_month'
 require_relative 'cal_year'
 
+# Cal class is responsible for processing the initial arguments, determining
+# their class, validity, and initial value, and then routing the process to
+# either the Month or Year class.
+
 class Cal
 
   MONTH_ERROR = 'Valid months are 1..12, January..December, Jan..Dec'
