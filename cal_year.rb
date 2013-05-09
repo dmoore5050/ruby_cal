@@ -2,7 +2,7 @@
 
 require_relative 'cal_month'
 
-# The year class utilizes the Month class to build a year, reformatting
+# Year class utilizes the Month class to build a year, reformatting
 # the months outputted to render a 12-month calendar.
 
 class Year
@@ -13,6 +13,7 @@ class Year
 
   def render_year
     @month_counter, @calendar = 1, ''
+
     @calendar << build_year_header
     4.times do
       @calendar << build_months
@@ -22,12 +23,7 @@ class Year
   end
 
   def build_year_header
-    if @year < 1000
-      header_year = " #{@year}"
-    else
-      header_year = @year
-    end
-
+    header_year = @year < 1000 ? " #{@year}" : @year
     header_year.to_s.center(62).rstrip + "\n\n"
   end
 
@@ -47,10 +43,9 @@ class Year
   end
 
   def format_weeks(week, i)
-    if @month_counter % 3 === 0
-      @week_array[i] << week.rstrip + "\n"
-    else
-      @week_array[i] << week + ' '
+    case @month_counter % 3 === 0
+    when true then  @week_array[i] << week.rstrip + "\n"
+    when false then @week_array[i] << week + ' '
     end
   end
 
