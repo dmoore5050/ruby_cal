@@ -20,4 +20,4 @@ Print any year from 1-9999 when given input types:
 
 To run this program with a singe command, add the following to your ~/.bashrc or ~/.zshrc file:
 
-alias rcal='ruby ~/desktop/NSS_section_2/ruby_cal/cal.rb'
+alias rcal='ruby ~/your/file/path/cal.rb'
