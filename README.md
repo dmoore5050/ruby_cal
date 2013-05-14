@@ -17,3 +17,7 @@ Print any year from 1-9999 when given input types:
  * ruby cal.rb 01
  * ruby cal.rb 001
  * ruby cal.rb 0001
+
+To run this program with a singe command, add the following to your ~/.bashrc or ~/.zshrc file:
+
+alias rcal='ruby ~/desktop/NSS_section_2/ruby_cal/cal.rb'
