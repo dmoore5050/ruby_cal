@@ -5,7 +5,7 @@ Ruby_cal is a 100% ruby implementation of the ubiquitous cal command in command 
 * print single month or full year calendars
 * output should be functionally and aesthetically identical to cal
 * should work for any month or year from 1800-3000
-* design should be test driven
+* development process should be test driven
 
 ##Features:
 
