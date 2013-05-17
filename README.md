@@ -1,4 +1,6 @@
-##Ruby_cal is a 100% ruby implementation of the ubiquitous cal command in command line. Specifications were:
+##Specifications
+
+Ruby_cal is a 100% ruby implementation of the ubiquitous cal command in command line. Specifications were:
 
 * print single month or full year calendars
 * output should be functionally and aesthetically identical to cal
